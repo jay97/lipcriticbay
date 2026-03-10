@@ -15,7 +15,7 @@ export default function AboutPage() {
 
         <div style={{ lineHeight: '1.6em', marginTop: 10 }}>
           <p>
-            <b>Lip Critic Bay</b> is the official torrent index for <a href="https://lipcriticworld.com" target="_blank" rel="noopener">Lip Critic</a>.
+            <b>Lip Critic Bay</b> is the official torrent index for <a href="https://lipcriticworld.com" target="_blank" rel="noopener noreferrer">Lip Critic</a>.
             Download studio albums, singles, stems, live recordings, and more — all free, all legal, straight from the band.
           </p>
 
@@ -27,8 +27,8 @@ export default function AboutPage() {
           <h2 style={{ marginTop: 20 }}><b>How It Works</b></h2>
           <p style={{ marginTop: 8 }}>
             You need a BitTorrent client to download. We recommend{' '}
-            <a href="https://transmissionbt.com" target="_blank" rel="noopener">Transmission</a> (Mac/Linux) or{' '}
-            <a href="https://www.qbittorrent.org" target="_blank" rel="noopener">qBittorrent</a> (Windows/Mac/Linux).
+            <a href="https://transmissionbt.com" target="_blank" rel="noopener noreferrer">Transmission</a> (Mac/Linux) or{' '}
+            <a href="https://www.qbittorrent.org" target="_blank" rel="noopener noreferrer">qBittorrent</a> (Windows/Mac/Linux).
             Click any magnet link on this site and it will open in your torrent client automatically.
           </p>
 
@@ -46,9 +46,9 @@ export default function AboutPage() {
 
           <h2 style={{ marginTop: 20 }}><b>Links</b></h2>
           <p style={{ marginTop: 8 }}>
-            <a href="https://lipcriticworld.com" target="_blank" rel="noopener">Official Website</a><br />
-            <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener">Instagram</a><br />
-            <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener">Merch Store</a><br />
+            <a href="https://lipcriticworld.com" target="_blank" rel="noopener noreferrer">Official Website</a><br />
+            <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener noreferrer">Instagram</a><br />
+            <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener noreferrer">Merch Store</a><br />
             <a href="/shows">Tour Dates</a>
           </p>
         </div>

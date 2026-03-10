@@ -3,25 +3,42 @@ import { join } from 'path'
 import type { Torrent, Category, Ad, Show } from './types'
 
 const dataDir = join(process.cwd(), 'data')
+let torrentsCache: Torrent[] | null = null
+let categoriesCache: Category[] | null = null
+let adsCache: Ad[] | null = null
+let showsCache: Show[] | null = null
+
+function loadJson<T>(filename: string): T {
+  const raw = readFileSync(join(dataDir, filename), 'utf-8')
+  return JSON.parse(raw) as T
+}
 
 export function getTorrents(): Torrent[] {
-  const raw = readFileSync(join(dataDir, 'torrents.json'), 'utf-8')
-  return JSON.parse(raw)
+  if (!torrentsCache) {
+    torrentsCache = loadJson<Torrent[]>('torrents.json')
+  }
+  return torrentsCache
 }
 
 export function getCategories(): Category[] {
-  const raw = readFileSync(join(dataDir, 'categories.json'), 'utf-8')
-  return JSON.parse(raw)
+  if (!categoriesCache) {
+    categoriesCache = loadJson<Category[]>('categories.json')
+  }
+  return categoriesCache
 }
 
 export function getAds(): Ad[] {
-  const raw = readFileSync(join(dataDir, 'ads.json'), 'utf-8')
-  return JSON.parse(raw)
+  if (!adsCache) {
+    adsCache = loadJson<Ad[]>('ads.json')
+  }
+  return adsCache
 }
 
 export function getShows(): Show[] {
-  const raw = readFileSync(join(dataDir, 'shows.json'), 'utf-8')
-  return JSON.parse(raw)
+  if (!showsCache) {
+    showsCache = loadJson<Show[]>('shows.json')
+  }
+  return showsCache
 }
 
 export function getTorrentById(id: number): Torrent | undefined {

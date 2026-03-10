@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import type { Show } from '@/lib/types'
+import { safeExternalHref } from '@/lib/url'
 
 interface ShowsTableProps {
   shows: Show[]
@@ -111,6 +112,8 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
   show: Show; isPast: boolean; expanded: boolean; onToggle: () => void; showKey: string
 }) {
   const day = getDayOfWeek(show.date)
+  const ticketHref = show.url ? safeExternalHref(show.url) : null
+  const photoHref = show.photo ? safeExternalHref(show.photo) : null
 
   return (
     <>
@@ -131,8 +134,8 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
             <span style={{ color: '#999', fontSize: '0.85em' }}>PAST</span>
           ) : show.soldOut ? (
             <span style={{ color: '#c00', fontWeight: 'bold', fontSize: '0.85em' }}>SOLD OUT</span>
-          ) : show.url && show.url !== '#' ? (
-            <a href={show.url} target="_blank" rel="noopener" style={{ border: 0 }}
+          ) : ticketHref ? (
+            <a href={ticketHref} target="_blank" rel="noopener noreferrer" style={{ border: 0 }}
               className="msb-btn" onClick={e => e.stopPropagation()}>TICKETS</a>
           ) : (
             <span style={{ color: '#888', fontSize: '0.85em' }}>TBA</span>
@@ -143,10 +146,16 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
         <tr className={`show-detail-row ${isPast ? 'past-show-row' : ''}`}>
           <td colSpan={4}>
             <div className="show-detail">
-              <a href={show.photo} target="_blank" rel="noopener"
-                className="show-thumb-link" onClick={e => e.stopPropagation()}>
-                <img src={show.photo} alt={show.venue} className="show-thumb" loading="lazy" />
-              </a>
+              {photoHref ? (
+                <a href={photoHref} target="_blank" rel="noopener noreferrer"
+                  className="show-thumb-link" onClick={e => e.stopPropagation()}>
+                  <img src={photoHref} alt={show.venue} className="show-thumb" loading="lazy" />
+                </a>
+              ) : (
+                <div className="show-thumb-link">
+                  <div className="show-thumb" aria-hidden />
+                </div>
+              )}
               <div className="show-detail-info">
                 <div className="show-detail-top">
                   <div className="show-detail-left">
@@ -178,13 +187,13 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
                 <div className="show-detail-maps">
                   <a
                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(show.address || (show.venue + ', ' + show.city))}`}
-                    target="_blank" rel="noopener"
+                    target="_blank" rel="noopener noreferrer"
                     onClick={e => e.stopPropagation()}
                   >&#x1F4CD; Google Maps</a>
                   <span className="map-sep">·</span>
                   <a
                     href={`https://maps.apple.com/?q=${encodeURIComponent(show.venue)}&ll=${show.lat},${show.lng}`}
-                    target="_blank" rel="noopener"
+                    target="_blank" rel="noopener noreferrer"
                     onClick={e => e.stopPropagation()}
                   >&#x1F34E; Apple Maps</a>
                 </div>

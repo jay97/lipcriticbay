@@ -1,6 +1,7 @@
 import { getCategories } from '@/lib/data'
 import SearchBar from '@/components/SearchBar'
 import { Suspense } from 'react'
+import Image from 'next/image'
 
 export default function HomePage() {
   const categories = getCategories()
@@ -9,11 +10,13 @@ export default function HomePage() {
     <div id="fp">
       <h1>
         <a href="/" title="Lip Critic Bay">
-          <img
+          <Image
             src="/img/logo.png"
             alt="Lip Critic Bay"
             width={450}
             height={429}
+            priority
+            sizes="(max-width: 480px) 80vw, 450px"
             style={{ maxWidth: '90vw', height: 'auto', border: 0 }}
           />
           <span>Lip Critic Bay</span>
@@ -23,8 +26,8 @@ export default function HomePage() {
       <nav id="navlinks">
         <a href="/about" title="About">About</a> |{' '}
         <a href="/shows" title="Tour Dates">Tour Dates</a> |{' '}
-        <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener">Instagram</a> |{' '}
-        <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener">Merch</a>
+        <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener noreferrer">Instagram</a> |{' '}
+        <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener noreferrer">Merch</a>
         <br />
         <strong>Search Torrents</strong> |{' '}
         <a href="/browse" title="Browse Torrents">Browse Torrents</a> |{' '}

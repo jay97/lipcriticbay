@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { getCategories } from '@/lib/data'
 import SearchBar from './SearchBar'
+import Image from 'next/image'
 
 export default function Header() {
   const categories = getCategories()
@@ -10,11 +11,12 @@ export default function Header() {
       <form method="get" id="q" action="/search">
         <div id="logo">
           <a href="/" style={{ borderBottom: 0 }}>
-            <img
+            <Image
               src="/img/logo.png"
               alt="Lip Critic Bay"
               width={82}
               height={78}
+              sizes="82px"
               style={{ height: 86, width: 'auto', marginTop: -12, marginRight: 10, float: 'left', border: 0, objectFit: 'contain' }}
             />
           </a>
@@ -25,9 +27,9 @@ export default function Header() {
             {' | '}
             <a href="/shows" title="Tour Dates">Tour Dates</a>
             {' | '}
-            <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener" title="Instagram">Instagram</a>
+            <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener noreferrer" title="Instagram">Instagram</a>
             {' | '}
-            <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener" title="Merch">Merch</a>
+            <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener noreferrer" title="Merch">Merch</a>
             <br />
             <b><a href="/" title="Search Torrents">Search Torrents</a></b>
             {' | '}
