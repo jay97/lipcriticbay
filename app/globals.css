@@ -1018,9 +1018,48 @@ footer p {
   .shows-table {
     font-size: 10px;
   }
+  .show-detail-row td {
+    padding: 0 4px 8px 4px !important;
+  }
+  .show-detail {
+    display: grid;
+    grid-template-columns: minmax(96px, 34vw) 1fr;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .show-thumb-link {
+    width: 100%;
+    align-self: stretch;
+  }
   .show-thumb {
-    width: 50px;
-    height: 38px;
+    width: 100%;
+    height: 100%;
+    min-height: 84px;
+    object-fit: cover;
+  }
+  .show-detail-top {
+    display: block;
+  }
+  .show-detail-right {
+    margin-top: 4px;
+    text-align: left;
+    align-items: flex-start;
+  }
+  .show-detail-admission {
+    white-space: normal;
+  }
+  .show-detail-weather-box {
+    display: inline-block;
+    white-space: normal;
+  }
+  .show-detail-maps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .show-detail-maps .map-sep {
+    display: none;
   }
 }
 
@@ -1100,13 +1139,16 @@ footer p {
     font-size: 0.8em;
   }
 
-  /* Shows: smaller thumb on phone, full-width detail */
-  .show-thumb {
-    width: 40px;
-    height: 30px;
+  /* Shows: use full width in expanded cards */
+  .show-detail-row td {
+    padding: 0 2px 8px 2px !important;
   }
   .show-detail {
-    gap: 6px;
+    grid-template-columns: minmax(110px, 38vw) 1fr;
+    gap: 10px;
+  }
+  .show-thumb {
+    min-height: 96px;
   }
   .show-detail-doors {
     font-size: 1.1em;
