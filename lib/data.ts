@@ -13,9 +13,44 @@ function loadJson<T>(filename: string): T {
   return JSON.parse(raw) as T
 }
 
+function uniqueStrings(values: string[]): string[] {
+  return [...new Set(values.map(v => v.trim()).filter(Boolean))]
+}
+
+function extractFileLikeLines(desc: string): string[] {
+  return uniqueStrings(
+    desc
+      .split(/\r?\n/)
+      .map(line => line.trim())
+      .filter(line => /[A-Za-z0-9_\-./ ]+\.[A-Za-z0-9]{1,6}$/.test(line))
+  )
+}
+
+function normalizeFileList(input: unknown, desc: string): string[] {
+  if (Array.isArray(input)) {
+    return uniqueStrings(input.filter((item): item is string => typeof item === 'string'))
+  }
+  if (typeof input === 'string') {
+    const chunks = input.includes('\n') ? input.split(/\r?\n/) : input.split(',')
+    return uniqueStrings(chunks)
+  }
+  return extractFileLikeLines(desc)
+}
+
+type RawTorrent = Omit<Torrent, 'files'> & { files?: unknown; fileList?: unknown }
+
+function normalizeTorrent(torrent: RawTorrent): Torrent {
+  const filesSource = torrent.files ?? torrent.fileList
+  return {
+    ...torrent,
+    files: normalizeFileList(filesSource, typeof torrent.desc === 'string' ? torrent.desc : ''),
+  }
+}
+
 export function getTorrents(): Torrent[] {
   if (!torrentsCache) {
-    torrentsCache = loadJson<Torrent[]>('torrents.json')
+    const rawTorrents = loadJson<RawTorrent[]>('torrents.json')
+    torrentsCache = rawTorrents.map(normalizeTorrent)
   }
   return torrentsCache
 }
