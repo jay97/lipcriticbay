@@ -1,38 +1,14 @@
 import { NextResponse } from 'next/server'
-import { getCachedPeers, isCacheStale, writeCache } from '@/lib/scrape-cache'
-import { scrapeAll } from '@/lib/tracker-scrape'
 import { getTorrents } from '@/lib/data'
 
-// Prevent concurrent scrapes
-let scraping = false
-
 export async function GET() {
-  const peers = getCachedPeers()
-
-  // Trigger background scrape if cache is stale
-  if (isCacheStale() && !scraping) {
-    scraping = true
-    // Fire and forget - don't await
-    doScrape().finally(() => { scraping = false })
+  // On serverless (Vercel), UDP scraping isn't available.
+  // Return empty peers — PeerCounts component will show 0/0 gracefully.
+  const torrents = getTorrents()
+  const peers: Record<string, { se: number; le: number }> = {}
+  for (const t of torrents) {
+    peers[t.hash] = { se: 0, le: 0 }
   }
 
-  return NextResponse.json({ peers, stale: isCacheStale() })
-}
-
-async function doScrape() {
-  try {
-    const torrents = getTorrents()
-    const results = await scrapeAll(
-      torrents.map(t => ({ hash: t.hash, trackers: t.trackers }))
-    )
-
-    const peers: Record<string, { se: number; le: number }> = {}
-    for (const [hash, data] of results) {
-      peers[hash] = data
-    }
-
-    writeCache(peers)
-  } catch {
-    // Scrape failure is non-fatal
-  }
+  return NextResponse.json({ peers, serverless: true })
 }

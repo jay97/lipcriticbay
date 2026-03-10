@@ -630,6 +630,32 @@ div.pagination li a:hover {
   background: #2a6aa8;
 }
 
+/* Weather forecast in show detail */
+.weather-forecast {
+  display: inline-block;
+  font-size: 0.95em;
+  color: #555;
+}
+.weather-icon {
+  font-size: 1.1em;
+  vertical-align: middle;
+}
+.weather-loading {
+  color: #aaa;
+  font-size: 0.85em;
+}
+
+/* Show column sizing */
+.shows-table .col-date {
+  white-space: nowrap;
+  font-weight: bold;
+}
+.shows-table .col-ticket {
+  white-space: nowrap;
+  text-align: center;
+  width: 1%;
+}
+
 /* ===================================
    FOOTER — TPB style with crypto donation addresses
    =================================== */
@@ -750,12 +776,9 @@ footer p {
     padding-left: 5px;
   }
 
-  /* Shows table: hide Ages on tablet */
+  /* Shows table: tighter on tablet */
   .shows-table {
     font-size: 10px;
-  }
-  .shows-table .col-ages {
-    display: none;
   }
   .show-thumb {
     width: 50px;

@@ -1,9 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Allow reading data/ folder at runtime
-  experimental: {
-    serverComponentsExternalPackages: ['dgram'],
-  },
-}
+const nextConfig = {}
 
 module.exports = nextConfig
