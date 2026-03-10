@@ -733,18 +733,19 @@ div.pagination li a:hover {
 
 /* Shows header — single h2 bar, no border collision */
 .shows-h2 {
-  display: flex;
+  display: inline-flex;
   align-items: baseline;
   gap: 12px;
-  width: 98%;
+  width: auto;
+  max-width: 100%;
   background: #F6F1EE;
   border-bottom: 1px solid #D2B9A6;
-  padding: 4px 0.5%;
+  padding: 4px 10px;
   clear: both;
   font-size: 125%;
   font-weight: normal;
   text-align: left;
-  margin: 0;
+  margin: 0 0 6px 0;
 }
 .shows-h2-title {
   font-weight: bold;
@@ -760,26 +761,28 @@ div.pagination li a:hover {
 
 /* Shows layout: table + sidebar calendar */
 .shows-layout {
-  display: block;
-}
-.shows-meta-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  grid-template-areas:
+    "controls sidebar"
+    "main sidebar";
+  column-gap: 16px;
+  row-gap: 6px;
+  align-items: start;
 }
 .shows-controls {
-  flex: 1 1 auto;
+  grid-area: controls;
   min-width: 0;
 }
 .shows-main {
-  margin-top: 6px;
+  grid-area: main;
+  margin-top: 0;
 }
 .shows-sidebar {
-  flex: 0 0 220px;
+  grid-area: sidebar;
   width: 220px;
   padding-top: 0;
-  margin-left: auto;
+  margin: 0;
 }
 
 /* ===== Mini Calendar ===== */
@@ -964,13 +967,18 @@ footer p {
   .show-date-dow {
     display: none;
   }
-  .shows-meta-row {
-    display: block;
+  .shows-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "controls"
+      "main"
+      "sidebar";
+    row-gap: 8px;
   }
   .shows-sidebar {
     width: 100%;
     max-width: 260px;
-    margin: 6px auto 8px auto;
+    margin: 0 auto;
     padding: 0 8px;
   }
   .shows-calendar {
@@ -1024,8 +1032,12 @@ footer p {
 
   /* Shows header wrap on mobile */
   .shows-h2 {
+    display: flex;
+    width: 98%;
     flex-wrap: wrap;
     gap: 2px 8px;
+    padding: 4px 0.5%;
+    margin-bottom: 6px;
   }
   .shows-h2-stats {
     font-size: 8px;

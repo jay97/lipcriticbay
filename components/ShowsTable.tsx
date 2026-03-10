@@ -386,28 +386,23 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
 
   return (
     <div className="shows-layout">
-      <div className="shows-meta-row">
-        <div className="shows-controls">
-          {hasSupport && (
-            <div className="sup-key">
-              {Object.entries(SUP_KEY).map(([code, info]) => (
-                <span key={code} className="sup-key-item">
-                  <span className="sup-dot" style={{ color: info.color }}>{code}</span>
-                  {' '}{info.label}
-                </span>
-              ))}
-            </div>
-          )}
+      <div className="shows-controls">
+        {hasSupport && (
+          <div className="sup-key">
+            {Object.entries(SUP_KEY).map(([code, info]) => (
+              <span key={code} className="sup-key-item">
+                <span className="sup-dot" style={{ color: info.color }}>{code}</span>
+                {' '}{info.label}
+              </span>
+            ))}
+          </div>
+        )}
 
-          {hasPastShows && (
-            <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
-              {showPast ? '▾ HIDE PAST SHOWS' : `▸ PAST SHOWS (${pastShows.length})`}
-            </button>
-          )}
-        </div>
-        <div className="shows-sidebar">
-          <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
-        </div>
+        {hasPastShows && (
+          <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
+            {showPast ? '▾ HIDE PAST SHOWS' : `▸ PAST SHOWS (${pastShows.length})`}
+          </button>
+        )}
       </div>
 
       <div className="shows-main">
@@ -431,6 +426,10 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
             })}
           </tbody>
         </table>
+      </div>
+
+      <div className="shows-sidebar">
+        <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
       </div>
     </div>
   )
