@@ -38,6 +38,7 @@ export interface Show {
   date: string
   city: string
   venue: string
+  address?: string
   sup: string[]
   doors: string
   ages: string

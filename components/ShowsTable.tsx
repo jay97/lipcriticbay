@@ -151,16 +151,24 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
                 <div className="show-detail-top">
                   <div className="show-detail-left">
                     <div><b>{show.venue}</b></div>
+                    {show.address && (
+                      <div className="show-detail-address">{show.address}</div>
+                    )}
                     <div className="show-detail-sub">{day} · {show.city}</div>
                   </div>
-                  {!isPast && (
-                    <div className="show-detail-weather">
-                      <WeatherForecast lat={show.lat} lng={show.lng} date={show.date} />
+                  <div className="show-detail-right">
+                    <div className="show-detail-admission">
+                      {show.price} · {show.ages}
                     </div>
-                  )}
+                    {!isPast && (
+                      <div className="show-detail-weather-box">
+                        <WeatherForecast lat={show.lat} lng={show.lng} date={show.date} />
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div className="show-detail-doors">
-                  {show.doors} doors · {show.ages} · {show.price}
+                  Doors {show.doors}
                 </div>
                 {show.sup.length > 0 && (
                   <div className="show-detail-support">
@@ -169,16 +177,16 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
                 )}
                 <div className="show-detail-maps">
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(show.venue + ', ' + show.city)}`}
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(show.address || (show.venue + ', ' + show.city))}`}
                     target="_blank" rel="noopener"
                     onClick={e => e.stopPropagation()}
-                  >Google Maps</a>
+                  >&#x1F4CD; Google Maps</a>
                   <span className="map-sep">·</span>
                   <a
                     href={`https://maps.apple.com/?q=${encodeURIComponent(show.venue)}&ll=${show.lat},${show.lng}`}
                     target="_blank" rel="noopener"
                     onClick={e => e.stopPropagation()}
-                  >Apple Maps</a>
+                  >&#x1F34E; Apple Maps</a>
                 </div>
               </div>
             </div>

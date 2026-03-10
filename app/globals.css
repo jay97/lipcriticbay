@@ -556,14 +556,35 @@ div.pagination li a:hover {
 .show-detail-left b {
   font-size: 1em;
 }
+.show-detail-address {
+  font-size: 0.85em;
+  color: #555;
+  margin-top: 1px;
+}
 .show-detail-sub {
   color: #7B563A;
   font-size: 0.9em;
 }
-.show-detail-weather {
+.show-detail-right {
   flex-shrink: 0;
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.show-detail-admission {
   font-size: 0.95em;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+}
+.show-detail-weather-box {
+  background: #e8e2dc;
+  border: 1px solid #D2B9A6;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 0.9em;
   white-space: nowrap;
 }
 .show-detail-doors {
@@ -1092,6 +1113,9 @@ footer p {
   }
   .show-detail-maps {
     font-size: 0.9em;
+  }
+  .show-detail-address {
+    font-size: 0.8em;
   }
 
   /* Magnet link targets: bigger tap zone */
