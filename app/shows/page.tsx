@@ -16,11 +16,31 @@ export default function ShowsPage() {
   const shows = getShows()
   const today = new Date().toISOString().split('T')[0]
 
+  // Compute next show for header
+  const upcoming = shows.filter(s => new Date(s.date) >= new Date(today))
+  const nextShow = upcoming[0]
+  const totalUpcoming = upcoming.length
+
   return (
     <>
       <Header />
-      <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'left' }}>
-        <h2><span>Tour Dates — Lip Critic</span></h2>
+      <div className="shows-page">
+        <div className="shows-header">
+          <div className="shows-header-title">
+            <h2 style={{ margin: 0, width: '100%' }}><span>Tour Dates</span></h2>
+          </div>
+          {nextShow && (
+            <div className="shows-header-stats">
+              <span className="shows-stat">
+                <b>{totalUpcoming}</b> upcoming shows
+              </span>
+              <span className="shows-stat-sep">·</span>
+              <span className="shows-stat">
+                Next: <b>{nextShow.city}</b> — {nextShow.date}
+              </span>
+            </div>
+          )}
+        </div>
         <ShowsTable shows={shows} today={today} />
       </div>
     </>

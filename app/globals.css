@@ -656,6 +656,116 @@ div.pagination li a:hover {
   width: 1%;
 }
 
+/* Shows page layout */
+.shows-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Shows header */
+.shows-header {
+  margin-bottom: 0;
+}
+.shows-header-stats {
+  font-size: 10px;
+  color: #7B563A;
+  padding: 6px 10px;
+  background: #F6F1EE;
+  border-bottom: 1px solid #e8ddd5;
+}
+.shows-stat {
+  display: inline;
+}
+.shows-stat-sep {
+  margin: 0 6px;
+  color: #ccc;
+}
+
+/* Shows layout: table + sidebar calendar */
+.shows-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.shows-main {
+  flex: 1;
+  min-width: 0;
+}
+.shows-sidebar {
+  flex-shrink: 0;
+  width: 170px;
+  padding-top: 4px;
+}
+
+/* ===== Mini Calendar ===== */
+.shows-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cal-month {
+  background: #F6F1EE;
+  border: 1px solid #e8ddd5;
+  padding: 6px;
+}
+.cal-month-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 9px;
+  color: #7B563A;
+  padding: 2px 0 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cal-grid {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.cal-grid th {
+  font-size: 8px;
+  color: #999;
+  font-weight: normal;
+  text-align: center;
+  padding: 1px;
+  background: transparent;
+  border: 0;
+}
+.cal-grid td {
+  font-size: 8px;
+  text-align: center;
+  padding: 2px 1px;
+  color: #888;
+  border: 0;
+}
+.cal-empty {
+  background: transparent !important;
+}
+.cal-day {
+  border-radius: 2px;
+}
+.cal-show {
+  background: #D2B9A6 !important;
+  color: #000 !important;
+  font-weight: bold;
+  cursor: default;
+}
+.cal-show.cal-sold-out {
+  background: #e8c0c0 !important;
+  color: #c00 !important;
+  text-decoration: line-through;
+}
+.cal-show.cal-past {
+  background: #e0dbd7 !important;
+  color: #999 !important;
+  font-weight: normal;
+}
+.cal-today {
+  outline: 1.5px solid #7B563A;
+  outline-offset: -1px;
+}
+
 /* ===================================
    FOOTER — TPB style with crypto donation addresses
    =================================== */
@@ -726,6 +836,26 @@ footer p {
   body {
     margin: 5px 0;
     font-size: 11px;
+  }
+
+  /* Stack calendar below table on tablet/mobile */
+  .shows-layout {
+    flex-direction: column;
+  }
+  .shows-sidebar {
+    width: 100%;
+    order: 1;
+    padding: 0 8px;
+  }
+  .shows-calendar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .cal-month {
+    width: calc(50% - 4px);
+    min-width: 140px;
   }
 
   /* Header: stack vertically */
