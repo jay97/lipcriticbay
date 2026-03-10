@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getCategories } from '@/lib/data'
 import SearchBar from './SearchBar'
 
@@ -34,7 +35,9 @@ export default function Header() {
             {' | '}
             <a href="/recent" title="Recent Torrents">Recent Torrents</a>
           </div>
-          <SearchBar categories={categories} compact />
+          <Suspense fallback={null}>
+            <SearchBar categories={categories} compact />
+          </Suspense>
         </div>
       </form>
     </div>
