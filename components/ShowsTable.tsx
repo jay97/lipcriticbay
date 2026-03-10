@@ -9,7 +9,7 @@ interface ShowsTableProps {
   today: string
 }
 
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const SUP_KEY: Record<string, { label: string; color: string }> = {
@@ -89,14 +89,16 @@ function WeatherForecast({ lat, lng, date }: { lat: number; lng: number; date: s
       .catch(() => setLoading(false))
   }, [lat, lng, date])
 
-  if (loading) return <span className="weather-loading">...</span>
+  if (loading) return null
   if (!weather) return null
 
   return (
-    <span className="weather-forecast">
-      <span className="weather-icon">{weatherIcon(weather.code)}</span>
-      {' '}{weather.tempHigh}°/{weather.tempLow}°F
-    </span>
+    <div className="show-detail-weather-box">
+      <span className="weather-forecast">
+        <span className="weather-icon">{weatherIcon(weather.code)}</span>
+        {' '}{weather.tempHigh}°/{weather.tempLow}°F
+      </span>
+    </div>
   )
 }
 
@@ -129,10 +131,7 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
         className={`show-row ${isPast ? 'past-show-row' : ''} ${show.soldOut ? 'sold-out' : ''} ${expanded ? 'show-row-expanded' : ''}`}
         onClick={onToggle}
       >
-        <td className="col-date">
-          <span className="show-date-main">{dateParts.main}</span>
-          {dateParts.year && <span className="show-date-year">, {dateParts.year}</span>}
-        </td>
+        <td className="col-date">{dateParts.main}</td>
         <td className="col-city">{show.city}</td>
         <td className="col-venue">
           {show.soldOut ? <span className="sold-out">{show.venue}</span> : show.venue}
@@ -180,9 +179,7 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
                       {show.price} · {show.ages}
                     </div>
                     {!isPast && (
-                      <div className="show-detail-weather-box">
-                        <WeatherForecast lat={show.lat} lng={show.lng} date={show.date} />
-                      </div>
+                      <WeatherForecast lat={show.lat} lng={show.lng} date={show.date} />
                     )}
                   </div>
                 </div>
@@ -342,7 +339,7 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
 
   const pastShows = shows.filter(s => parseShowDate(s.date) < todayDate)
   const upcomingShows = shows.filter(s => parseShowDate(s.date) >= todayDate)
-  const mobileDateYear = splitShowDate((upcomingShows[0] || shows[0])?.date || today).year || String(todayDate.getUTCFullYear())
+  const dateHeaderYear = splitShowDate((upcomingShows[0] || shows[0])?.date || today).year || String(todayDate.getUTCFullYear())
   const hasPastShows = pastShows.length > 0
   const hasSupport = shows.some(s => s.sup.length > 0)
 
@@ -407,10 +404,7 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
         <table className="shows-table">
           <thead>
             <tr>
-              <th>
-                <span className="shows-date-head-desktop">Date</span>
-                <span className="shows-date-head-mobile">Date ({mobileDateYear})</span>
-              </th>
+              <th>Date ({dateHeaderYear})</th>
               <th>City</th>
               <th>Venue</th>
               <th></th>
