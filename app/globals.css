@@ -540,8 +540,58 @@ div.pagination li a:hover {
   display: block;
 }
 .show-detail-info {
-  font-size: 0.95em;
+  flex: 1;
+  min-width: 0;
   line-height: 1.4;
+}
+.show-detail-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.show-detail-left {
+  min-width: 0;
+}
+.show-detail-left b {
+  font-size: 1em;
+}
+.show-detail-sub {
+  color: #7B563A;
+  font-size: 0.9em;
+}
+.show-detail-weather {
+  flex-shrink: 0;
+  text-align: right;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+.show-detail-doors {
+  margin-top: 5px;
+  font-size: 1.05em;
+  font-weight: bold;
+  color: #333;
+  letter-spacing: 0.02em;
+}
+.show-detail-support {
+  margin-top: 3px;
+  font-size: 0.85em;
+  color: #666;
+}
+.show-detail-maps {
+  margin-top: 5px;
+  font-size: 0.85em;
+}
+.show-detail-maps a {
+  color: #009;
+  border-bottom: 1px dotted #009 !important;
+}
+.show-detail-maps a:hover {
+  border-bottom: 1px solid #009 !important;
+}
+.show-detail-maps .map-sep {
+  margin: 0 5px;
+  color: #ccc;
 }
 
 /* Supporter key legend */
@@ -1029,13 +1079,19 @@ footer p {
     font-size: 0.8em;
   }
 
-  /* Shows: smaller thumb on phone */
+  /* Shows: smaller thumb on phone, full-width detail */
   .show-thumb {
     width: 40px;
     height: 30px;
   }
   .show-detail {
     gap: 6px;
+  }
+  .show-detail-doors {
+    font-size: 1.1em;
+  }
+  .show-detail-maps {
+    font-size: 0.9em;
   }
 
   /* Magnet link targets: bigger tap zone */

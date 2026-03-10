@@ -148,21 +148,38 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
                 <img src={show.photo} alt={show.venue} className="show-thumb" loading="lazy" />
               </a>
               <div className="show-detail-info">
-                <div><b>{show.venue}</b></div>
-                <div style={{ color: '#7B563A', fontSize: '0.95em' }}>{day} · {show.city}</div>
-                <div style={{ marginTop: 4, fontSize: '0.9em' }}>
-                  Doors: {show.doors} · {show.ages} · {show.price}
+                <div className="show-detail-top">
+                  <div className="show-detail-left">
+                    <div><b>{show.venue}</b></div>
+                    <div className="show-detail-sub">{day} · {show.city}</div>
+                  </div>
+                  {!isPast && (
+                    <div className="show-detail-weather">
+                      <WeatherForecast lat={show.lat} lng={show.lng} date={show.date} />
+                    </div>
+                  )}
+                </div>
+                <div className="show-detail-doors">
+                  {show.doors} doors · {show.ages} · {show.price}
                 </div>
                 {show.sup.length > 0 && (
-                  <div style={{ marginTop: 4, fontSize: '0.85em', color: '#666' }}>
+                  <div className="show-detail-support">
                     w/ {show.sup.map(s => SUP_KEY[s]?.label || s).join(', ')}
                   </div>
                 )}
-                {!isPast && (
-                  <div style={{ marginTop: 4, fontSize: '0.85em', color: '#666' }}>
-                    <WeatherForecast lat={show.lat} lng={show.lng} date={show.date} />
-                  </div>
-                )}
+                <div className="show-detail-maps">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(show.venue + ', ' + show.city)}`}
+                    target="_blank" rel="noopener"
+                    onClick={e => e.stopPropagation()}
+                  >Google Maps</a>
+                  <span className="map-sep">·</span>
+                  <a
+                    href={`https://maps.apple.com/?q=${encodeURIComponent(show.venue)}&ll=${show.lat},${show.lng}`}
+                    target="_blank" rel="noopener"
+                    onClick={e => e.stopPropagation()}
+                  >Apple Maps</a>
+                </div>
               </div>
             </div>
           </td>
