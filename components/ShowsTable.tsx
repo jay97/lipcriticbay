@@ -21,6 +21,12 @@ function parseShowDate(dateStr: string): Date {
   return new Date(dateStr)
 }
 
+function splitShowDate(dateStr: string): { main: string; year: string } {
+  const match = dateStr.match(/^(.*?)(?:,\s*(\d{4}))$/)
+  if (!match) return { main: dateStr, year: '' }
+  return { main: match[1], year: match[2] || '' }
+}
+
 function getDayOfWeek(dateStr: string): string {
   const d = new Date(dateStr)
   return DAYS[d.getUTCDay()] || ''
@@ -112,6 +118,7 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
   show: Show; isPast: boolean; expanded: boolean; onToggle: () => void; showKey: string
 }) {
   const day = getDayOfWeek(show.date)
+  const dateParts = splitShowDate(show.date)
   const ticketHref = show.url ? safeExternalHref(show.url) : null
   const photoHref = show.photo ? safeExternalHref(show.photo) : null
 
@@ -122,7 +129,10 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
         className={`show-row ${isPast ? 'past-show-row' : ''} ${show.soldOut ? 'sold-out' : ''} ${expanded ? 'show-row-expanded' : ''}`}
         onClick={onToggle}
       >
-        <td className="col-date">{show.date}</td>
+        <td className="col-date">
+          <span className="show-date-main">{dateParts.main}</span>
+          {dateParts.year && <span className="show-date-year">, {dateParts.year}</span>}
+        </td>
         <td className="col-city">{show.city}</td>
         <td className="col-venue">
           {show.soldOut ? <span className="sold-out">{show.venue}</span> : show.venue}
@@ -231,64 +241,93 @@ function MiniCalendar({ shows, today, onSelectDate }: {
 
   const todayDate = new Date(today)
   const todayKey = `${todayDate.getUTCFullYear()}-${String(todayDate.getUTCMonth() + 1).padStart(2, '0')}-${String(todayDate.getUTCDate()).padStart(2, '0')}`
+  const monthStartTs = Date.UTC(todayDate.getUTCFullYear(), todayDate.getUTCMonth(), 1)
+  const defaultMonthIndex = (() => {
+    const todayMonthIndex = months.findIndex(m => m.year === todayDate.getUTCFullYear() && m.month === todayDate.getUTCMonth())
+    if (todayMonthIndex >= 0) return todayMonthIndex
+    const nextMonthIndex = months.findIndex(m => Date.UTC(m.year, m.month, 1) >= monthStartTs)
+    if (nextMonthIndex >= 0) return nextMonthIndex
+    return Math.max(0, months.length - 1)
+  })()
+  const [monthIndex, setMonthIndex] = useState(defaultMonthIndex)
+
+  if (months.length === 0) return null
+
+  const clampedMonthIndex = Math.min(Math.max(monthIndex, 0), months.length - 1)
+  const { year, month } = months[clampedMonthIndex]
+  const firstDay = new Date(Date.UTC(year, month, 1))
+  const startDow = firstDay.getUTCDay()
+  const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate()
+
+  const cells: JSX.Element[] = []
+  for (let i = 0; i < startDow; i++) {
+    cells.push(<td key={`e${i}`} className="cal-empty"></td>)
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+    const show = showDateSet.get(key)
+    const isToday = key === todayKey
+    const isPast = key < todayKey
+    let cls = 'cal-day'
+    if (show) cls += show.soldOut ? ' cal-show cal-sold-out' : ' cal-show'
+    if (isToday) cls += ' cal-today'
+    if (isPast && show) cls += ' cal-past'
+    cells.push(
+      <td
+        key={d}
+        className={cls}
+        title={show ? `${show.venue} — ${show.city}` : undefined}
+        onClick={show ? () => onSelectDate(show.date) : undefined}
+      >
+        {d}
+      </td>
+    )
+  }
+
+  const rows: JSX.Element[][] = []
+  for (let i = 0; i < cells.length; i += 7) {
+    rows.push(cells.slice(i, i + 7))
+  }
+  const lastRow = rows[rows.length - 1]
+  while (lastRow.length < 7) {
+    lastRow.push(<td key={`p${lastRow.length}`} className="cal-empty"></td>)
+  }
 
   return (
     <div className="shows-calendar">
-      {months.map(({ year, month }) => {
-        const firstDay = new Date(Date.UTC(year, month, 1))
-        const startDow = firstDay.getUTCDay()
-        const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate()
-
-        const cells: JSX.Element[] = []
-        for (let i = 0; i < startDow; i++) {
-          cells.push(<td key={`e${i}`} className="cal-empty"></td>)
-        }
-        for (let d = 1; d <= daysInMonth; d++) {
-          const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
-          const show = showDateSet.get(key)
-          const isToday = key === todayKey
-          const isPast = key < todayKey
-          let cls = 'cal-day'
-          if (show) cls += show.soldOut ? ' cal-show cal-sold-out' : ' cal-show'
-          if (isToday) cls += ' cal-today'
-          if (isPast && show) cls += ' cal-past'
-          cells.push(
-            <td
-              key={d}
-              className={cls}
-              title={show ? `${show.venue} — ${show.city}` : undefined}
-              onClick={show ? () => onSelectDate(show.date) : undefined}
-            >
-              {d}
-            </td>
-          )
-        }
-
-        const rows: JSX.Element[][] = []
-        for (let i = 0; i < cells.length; i += 7) {
-          rows.push(cells.slice(i, i + 7))
-        }
-        const lastRow = rows[rows.length - 1]
-        while (lastRow.length < 7) {
-          lastRow.push(<td key={`p${lastRow.length}`} className="cal-empty"></td>)
-        }
-
-        return (
-          <div key={`${year}-${month}`} className="cal-month">
-            <div className="cal-month-title">{MONTHS[month]} {year}</div>
-            <table className="cal-grid">
-              <thead>
-                <tr>
-                  <th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row, i) => <tr key={i}>{row}</tr>)}
-              </tbody>
-            </table>
-          </div>
-        )
-      })}
+      <div className="cal-month">
+        <div className="cal-nav">
+          <button
+            type="button"
+            className="cal-nav-btn"
+            onClick={() => setMonthIndex(i => Math.max(0, i - 1))}
+            disabled={clampedMonthIndex === 0}
+            aria-label="Previous month"
+          >
+            &#8249;
+          </button>
+          <div className="cal-month-title">{MONTHS[month]} {year}</div>
+          <button
+            type="button"
+            className="cal-nav-btn"
+            onClick={() => setMonthIndex(i => Math.min(months.length - 1, i + 1))}
+            disabled={clampedMonthIndex === months.length - 1}
+            aria-label="Next month"
+          >
+            &#8250;
+          </button>
+        </div>
+        <table className="cal-grid">
+          <thead>
+            <tr>
+              <th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => <tr key={i}>{row}</tr>)}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
@@ -303,6 +342,7 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
 
   const pastShows = shows.filter(s => parseShowDate(s.date) < todayDate)
   const upcomingShows = shows.filter(s => parseShowDate(s.date) >= todayDate)
+  const mobileDateYear = splitShowDate((upcomingShows[0] || shows[0])?.date || today).year || String(todayDate.getUTCFullYear())
   const hasPastShows = pastShows.length > 0
   const hasSupport = shows.some(s => s.sup.length > 0)
 
@@ -367,7 +407,10 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
         <table className="shows-table">
           <thead>
             <tr>
-              <th>Date</th>
+              <th>
+                <span className="shows-date-head-desktop">Date</span>
+                <span className="shows-date-head-mobile">Date ({mobileDateYear})</span>
+              </th>
               <th>City</th>
               <th>Venue</th>
               <th></th>

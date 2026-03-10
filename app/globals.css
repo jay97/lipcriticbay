@@ -727,6 +727,12 @@ div.pagination li a:hover {
   white-space: nowrap;
   font-weight: bold;
 }
+.shows-date-head-mobile {
+  display: none;
+}
+.shows-date-head-desktop {
+  display: inline;
+}
 .shows-table .col-ticket {
   white-space: nowrap;
   text-align: center;
@@ -788,6 +794,26 @@ div.pagination li a:hover {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+.cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.cal-nav-btn {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #D2B9A6;
+  background: #fff;
+  color: #7B563A;
+  font: bold 12px/1 Verdana, Arial, Helvetica, sans-serif;
+  padding: 0;
+  cursor: pointer;
+}
+.cal-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 .cal-month {
   background: #F6F1EE;
@@ -936,14 +962,12 @@ footer p {
     padding: 0 8px;
   }
   .shows-calendar {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
+    display: block;
   }
   .cal-month {
-    width: calc(50% - 4px);
-    min-width: 140px;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
   }
 
   /* Mobile header: clean stacked layout */
@@ -986,7 +1010,6 @@ footer p {
   .shows-h2-stats {
     font-size: 8px;
   }
-
   /* Table: hide less important columns on small screens */
   table#searchResult td.vertTh {
     display: none;
@@ -1149,6 +1172,15 @@ footer p {
   /* Shows: use full width in expanded cards */
   .show-detail-row td {
     padding: 0 2px 8px 2px !important;
+  }
+  .shows-date-head-desktop {
+    display: none;
+  }
+  .shows-date-head-mobile {
+    display: inline;
+  }
+  .show-date-year {
+    display: none;
   }
   .show-detail {
     grid-template-columns: minmax(110px, 38vw) 1fr;
