@@ -663,23 +663,31 @@ div.pagination li a:hover {
   text-align: left;
 }
 
-/* Shows header */
-.shows-header {
-  margin-bottom: 0;
-}
-.shows-header-stats {
-  font-size: 10px;
-  color: #7B563A;
-  padding: 6px 10px;
+/* Shows header — single h2 bar, no border collision */
+.shows-h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  width: 98%;
   background: #F6F1EE;
-  border-bottom: 1px solid #e8ddd5;
+  border-bottom: 1px solid #D2B9A6;
+  padding: 4px 0.5%;
+  clear: both;
+  font-size: 125%;
+  font-weight: normal;
+  text-align: left;
+  margin: 0;
 }
-.shows-stat {
-  display: inline;
+.shows-h2-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  white-space: nowrap;
 }
-.shows-stat-sep {
-  margin: 0 6px;
-  color: #ccc;
+.shows-h2-stats {
+  font-size: 9px;
+  font-weight: normal;
+  color: #7B563A;
+  white-space: nowrap;
 }
 
 /* Shows layout: table + sidebar calendar */
@@ -749,7 +757,10 @@ div.pagination li a:hover {
   background: #D2B9A6 !important;
   color: #000 !important;
   font-weight: bold;
-  cursor: default;
+  cursor: pointer;
+}
+.cal-show:hover {
+  background: #c9a88f !important;
 }
 .cal-show.cal-sold-out {
   background: #e8c0c0 !important;
@@ -858,18 +869,44 @@ footer p {
     min-width: 140px;
   }
 
-  /* Header: stack vertically */
+  /* Mobile header: clean stacked layout */
   #header {
-    padding: 5px 8px;
+    padding: 8px;
+    text-align: center;
+  }
+  #header::after { display: none; }
+  #logo {
+    float: none !important;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  #logo a {
+    float: none !important;
+    display: inline-block !important;
   }
   #logo img {
-    height: 50px !important;
-    margin-top: 0 !important;
+    height: 44px !important;
+    margin: 0 !important;
+    float: none !important;
   }
   #header form > div:last-child {
-    clear: both;
     float: none !important;
-    padding-top: 5px;
+    clear: both;
+    text-align: center;
+  }
+  #header form > div:last-child > div:first-child {
+    margin-bottom: 6px;
+    line-height: 1.8;
+    font-size: 11px;
+  }
+
+  /* Shows header wrap on mobile */
+  .shows-h2 {
+    flex-wrap: wrap;
+    gap: 2px 8px;
+  }
+  .shows-h2-stats {
+    font-size: 8px;
   }
 
   /* Table: hide less important columns on small screens */

@@ -25,22 +25,14 @@ export default function ShowsPage() {
     <>
       <Header />
       <div className="shows-page">
-        <div className="shows-header">
-          <div className="shows-header-title">
-            <h2 style={{ margin: 0, width: '100%' }}><span>Tour Dates</span></h2>
-          </div>
+        <h2 className="shows-h2">
+          <span className="shows-h2-title">Tour Dates</span>
           {nextShow && (
-            <div className="shows-header-stats">
-              <span className="shows-stat">
-                <b>{totalUpcoming}</b> upcoming shows
-              </span>
-              <span className="shows-stat-sep">·</span>
-              <span className="shows-stat">
-                Next: <b>{nextShow.city}</b> — {nextShow.date}
-              </span>
-            </div>
+            <span className="shows-h2-stats">
+              {totalUpcoming} shows &middot; Next: {nextShow.city} — {nextShow.date}
+            </span>
           )}
-        </div>
+        </h2>
         <ShowsTable shows={shows} today={today} />
       </div>
     </>

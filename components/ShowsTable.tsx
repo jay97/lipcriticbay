@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import type { Show } from '@/lib/types'
 
 interface ShowsTableProps {
@@ -107,14 +107,15 @@ function weatherIcon(code: number): string {
 }
 
 // ===== ShowRow — controlled by parent (accordion) =====
-function ShowRow({ show, isPast, expanded, onToggle }: {
-  show: Show; isPast: boolean; expanded: boolean; onToggle: () => void
+function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
+  show: Show; isPast: boolean; expanded: boolean; onToggle: () => void; showKey: string
 }) {
   const day = getDayOfWeek(show.date)
 
   return (
     <>
       <tr
+        data-show-key={showKey}
         className={`show-row ${isPast ? 'past-show-row' : ''} ${show.soldOut ? 'sold-out' : ''} ${expanded ? 'show-row-expanded' : ''}`}
         onClick={onToggle}
       >
@@ -171,8 +172,10 @@ function ShowRow({ show, isPast, expanded, onToggle }: {
   )
 }
 
-// ===== Mini Calendar =====
-function MiniCalendar({ shows, today }: { shows: Show[]; today: string }) {
+// ===== Mini Calendar (interactive) =====
+function MiniCalendar({ shows, today, onSelectDate }: {
+  shows: Show[]; today: string; onSelectDate: (dateKey: string) => void
+}) {
   const showDateSet = new Map<string, Show>()
   for (const show of shows) {
     const d = new Date(show.date)
@@ -216,7 +219,12 @@ function MiniCalendar({ shows, today }: { shows: Show[]; today: string }) {
           if (isToday) cls += ' cal-today'
           if (isPast && show) cls += ' cal-past'
           cells.push(
-            <td key={d} className={cls} title={show ? `${show.venue} — ${show.city}` : undefined}>
+            <td
+              key={d}
+              className={cls}
+              title={show ? `${show.venue} — ${show.city}` : undefined}
+              onClick={show ? () => onSelectDate(show.date) : undefined}
+            >
               {d}
             </td>
           )
@@ -268,6 +276,40 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
     setExpandedKey(prev => prev === key ? null : key)
   }
 
+  // Scroll to a show row after React re-renders
+  function scrollToRow(key: string) {
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        document.querySelector(`[data-show-key="${key}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 60)
+    })
+  }
+
+  // Calendar click → find show, expand it, scroll to it
+  const handleCalendarClick = useCallback((dateStr: string) => {
+    // Check upcoming first
+    const upIdx = upcomingShows.findIndex(s => s.date === dateStr)
+    if (upIdx >= 0) {
+      const key = `upcoming-${upIdx}`
+      setExpandedKey(prev => prev === key ? null : key)
+      scrollToRow(key)
+      return
+    }
+    // Check past shows
+    const pastIdx = pastShows.findIndex(s => s.date === dateStr)
+    if (pastIdx >= 0) {
+      if (!showPast) setShowPast(true)
+      const key = `past-${pastIdx}`
+      setExpandedKey(prev => prev === key ? null : key)
+      // Longer delay for past shows since they need to render first
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          document.querySelector(`[data-show-key="${key}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 150)
+      })
+    }
+  }, [upcomingShows, pastShows, showPast])
+
   return (
     <div className="shows-layout">
       <div className="shows-main">
@@ -300,18 +342,18 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
           <tbody>
             {showPast && pastShows.map((show, i) => {
               const key = `past-${i}`
-              return <ShowRow key={key} show={show} isPast expanded={expandedKey === key} onToggle={() => toggle(key)} />
+              return <ShowRow key={key} show={show} isPast expanded={expandedKey === key} onToggle={() => toggle(key)} showKey={key} />
             })}
             {upcomingShows.map((show, i) => {
               const key = `upcoming-${i}`
-              return <ShowRow key={key} show={show} isPast={false} expanded={expandedKey === key} onToggle={() => toggle(key)} />
+              return <ShowRow key={key} show={show} isPast={false} expanded={expandedKey === key} onToggle={() => toggle(key)} showKey={key} />
             })}
           </tbody>
         </table>
       </div>
 
       <div className="shows-sidebar">
-        <MiniCalendar shows={shows} today={today} />
+        <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
       </div>
     </div>
   )
