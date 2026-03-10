@@ -3,11 +3,15 @@ import { getCategories } from '@/lib/data'
 import SearchBar from './SearchBar'
 import Image from 'next/image'
 
-export default function Header() {
+interface HeaderProps {
+  hideSearchOnMobile?: boolean
+}
+
+export default function Header({ hideSearchOnMobile = false }: HeaderProps) {
   const categories = getCategories()
 
   return (
-    <div id="header">
+    <div id="header" className={hideSearchOnMobile ? 'header-no-mobile-search' : undefined}>
       <form method="get" id="q" action="/search">
         <div id="logo">
           <a href="/" style={{ borderBottom: 0 }}>
@@ -29,7 +33,7 @@ export default function Header() {
             {' | '}
             <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener noreferrer" title="Instagram">Instagram</a>
             {' | '}
-            <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener noreferrer" title="Merch">Merch</a>
+            <a href="/merch" title="Merch">Merch</a>
             <br />
             <b><a href="/" title="Search Torrents">Search Torrents</a></b>
             {' | '}
@@ -37,9 +41,11 @@ export default function Header() {
             {' | '}
             <a href="/recent" title="Recent Torrents">Recent Torrents</a>
           </div>
-          <Suspense fallback={null}>
-            <SearchBar categories={categories} compact />
-          </Suspense>
+          <div className="header-search-wrap">
+            <Suspense fallback={null}>
+              <SearchBar categories={categories} compact />
+            </Suspense>
+          </div>
         </div>
       </form>
     </div>

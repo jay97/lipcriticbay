@@ -27,7 +27,7 @@ export default function HomePage() {
         <a href="/about" title="About">About</a> |{' '}
         <a href="/shows" title="Tour Dates">Tour Dates</a> |{' '}
         <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener noreferrer">Instagram</a> |{' '}
-        <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener noreferrer">Merch</a>
+        <a href="/merch" title="Merch">Merch</a>
         <br />
         <strong>Search Torrents</strong> |{' '}
         <a href="/browse" title="Browse Torrents">Browse Torrents</a> |{' '}

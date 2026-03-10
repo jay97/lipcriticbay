@@ -497,14 +497,6 @@ div.pagination li a:hover {
 .shows-table tr.show-row { cursor: pointer; }
 .shows-table tr.show-row-expanded { background: #eee8e3; }
 
-/* Day of week prefix */
-.show-day {
-  color: #999;
-  font-weight: normal;
-  font-size: 0.9em;
-  margin-right: 2px;
-}
-
 /* Past show rows — faded */
 .shows-table tr.past-show-row {
   background: #eae5e1;
@@ -524,7 +516,7 @@ div.pagination li a:hover {
 }
 .show-detail {
   display: grid;
-  grid-template-columns: 124px minmax(0, 1fr);
+  grid-template-columns: 100px minmax(0, 1fr);
   gap: 12px;
   align-items: stretch;
   padding: 4px 0;
@@ -537,7 +529,7 @@ div.pagination li a:hover {
 .show-thumb {
   width: 100%;
   height: 100%;
-  min-height: 84px;
+  min-height: 70px;
   object-fit: cover;
   border: 1px solid #D2B9A6;
   display: block;
@@ -717,15 +709,14 @@ div.pagination li a:hover {
   font-size: 1.1em;
   vertical-align: middle;
 }
-.weather-loading {
-  color: #aaa;
-  font-size: 0.85em;
-}
 
 /* Show column sizing */
 .shows-table .col-date {
   white-space: nowrap;
   font-weight: bold;
+}
+.show-date-dow {
+  display: inline;
 }
 .shows-table .col-ticket {
   white-space: nowrap;
@@ -769,25 +760,31 @@ div.pagination li a:hover {
 
 /* Shows layout: table + sidebar calendar */
 .shows-layout {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
+  display: block;
 }
-.shows-main {
-  flex: 1;
+.shows-meta-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  justify-content: space-between;
+}
+.shows-controls {
+  flex: 1 1 auto;
   min-width: 0;
 }
+.shows-main {
+  margin-top: 6px;
+}
 .shows-sidebar {
-  flex-shrink: 0;
-  width: 170px;
-  padding-top: 4px;
+  flex: 0 0 220px;
+  width: 220px;
+  padding-top: 0;
+  margin-left: auto;
 }
 
 /* ===== Mini Calendar ===== */
 .shows-calendar {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: block;
 }
 .cal-nav {
   display: flex;
@@ -934,6 +931,24 @@ footer p {
   color: #a00;
 }
 
+/* Merch coming soon */
+.coming-soon-wrap {
+  padding: 18px 12px;
+}
+.coming-soon-text {
+  margin: 0;
+  font: bold 2em/1.2 Verdana, Arial, Helvetica, sans-serif;
+  letter-spacing: 0.08em;
+  color: #7B563A;
+  animation: comingSoonPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes comingSoonPulse {
+  0% { opacity: 0.55; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+  100% { opacity: 0.55; transform: translateY(0); }
+}
+
 /* ===================================
    RESPONSIVE — Mobile & Instagram Web Wrapper
    Instagram in-app browser is ~375px wide, no zoom controls
@@ -946,13 +961,16 @@ footer p {
     font-size: 11px;
   }
 
-  /* Stack calendar below table on tablet/mobile */
-  .shows-layout {
-    flex-direction: column;
+  .show-date-dow {
+    display: none;
+  }
+  .shows-meta-row {
+    display: block;
   }
   .shows-sidebar {
     width: 100%;
-    order: 1;
+    max-width: 260px;
+    margin: 6px auto 8px auto;
     padding: 0 8px;
   }
   .shows-calendar {
@@ -1012,6 +1030,9 @@ footer p {
   .shows-h2-stats {
     font-size: 8px;
   }
+  .header-no-mobile-search .header-search-wrap {
+    display: none;
+  }
   /* Table: hide less important columns on small screens */
   table#searchResult td.vertTh {
     display: none;
@@ -1055,7 +1076,7 @@ footer p {
   }
   .show-detail {
     display: grid;
-    grid-template-columns: minmax(74px, 28vw) 1fr;
+    grid-template-columns: minmax(64px, 24vw) 1fr;
     gap: 8px;
     align-items: stretch;
   }
@@ -1066,7 +1087,7 @@ footer p {
   .show-thumb {
     width: 100%;
     height: 100%;
-    min-height: 68px;
+    min-height: 56px;
     object-fit: cover;
   }
   .show-detail-top {
@@ -1176,11 +1197,11 @@ footer p {
     padding: 0 2px 8px 2px !important;
   }
   .show-detail {
-    grid-template-columns: minmax(70px, 26vw) 1fr;
+    grid-template-columns: minmax(56px, 22vw) 1fr;
     gap: 8px;
   }
   .show-thumb {
-    min-height: 62px;
+    min-height: 48px;
   }
   .show-detail-doors {
     font-size: 1.1em;

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <Header />
+      <Header hideSearchOnMobile />
       <div style={{ maxWidth: 625, margin: '0 auto', textAlign: 'left', padding: '0 1.5em' }}>
         <h2><b>About Lip Critic Bay</b></h2>
 
@@ -48,7 +48,7 @@ export default function AboutPage() {
           <p style={{ marginTop: 8 }}>
             <a href="https://lipcriticworld.com" target="_blank" rel="noopener noreferrer">Official Website</a><br />
             <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener noreferrer">Instagram</a><br />
-            <a href="https://lipcriticworld.myshopify.com" target="_blank" rel="noopener noreferrer">Merch Store</a><br />
+            <a href="/merch">Merch</a><br />
             <a href="/shows">Tour Dates</a>
           </p>
         </div>

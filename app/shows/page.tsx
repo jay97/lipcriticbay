@@ -23,7 +23,7 @@ export default function ShowsPage() {
 
   return (
     <>
-      <Header />
+      <Header hideSearchOnMobile />
       <div className="shows-page">
         <h2 className="shows-h2">
           <span className="shows-h2-title">Tour Dates</span>

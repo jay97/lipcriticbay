@@ -131,7 +131,10 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
         className={`show-row ${isPast ? 'past-show-row' : ''} ${show.soldOut ? 'sold-out' : ''} ${expanded ? 'show-row-expanded' : ''}`}
         onClick={onToggle}
       >
-        <td className="col-date">{dateParts.main}</td>
+        <td className="col-date">
+          <span className="show-date-dow">{day}, </span>
+          <span className="show-date-main">{dateParts.main}</span>
+        </td>
         <td className="col-city">{show.city}</td>
         <td className="col-venue">
           {show.soldOut ? <span className="sold-out">{show.venue}</span> : show.venue}
@@ -383,24 +386,31 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
 
   return (
     <div className="shows-layout">
+      <div className="shows-meta-row">
+        <div className="shows-controls">
+          {hasSupport && (
+            <div className="sup-key">
+              {Object.entries(SUP_KEY).map(([code, info]) => (
+                <span key={code} className="sup-key-item">
+                  <span className="sup-dot" style={{ color: info.color }}>{code}</span>
+                  {' '}{info.label}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {hasPastShows && (
+            <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
+              {showPast ? '▾ HIDE PAST SHOWS' : `▸ PAST SHOWS (${pastShows.length})`}
+            </button>
+          )}
+        </div>
+        <div className="shows-sidebar">
+          <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
+        </div>
+      </div>
+
       <div className="shows-main">
-        {hasSupport && (
-          <div className="sup-key">
-            {Object.entries(SUP_KEY).map(([code, info]) => (
-              <span key={code} className="sup-key-item">
-                <span className="sup-dot" style={{ color: info.color }}>{code}</span>
-                {' '}{info.label}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {hasPastShows && (
-          <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
-            {showPast ? '▾ HIDE PAST SHOWS' : `▸ PAST SHOWS (${pastShows.length})`}
-          </button>
-        )}
-
         <table className="shows-table">
           <thead>
             <tr>
@@ -421,10 +431,6 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
             })}
           </tbody>
         </table>
-      </div>
-
-      <div className="shows-sidebar">
-        <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
       </div>
     </div>
   )
