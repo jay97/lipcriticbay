@@ -1,0 +1,42 @@
+[
+  {
+    "title": "★ NEW ALBUM ★",
+    "html": "<strong>THEFT WORLD</strong><br><em>\"Glitchy, confrontational,<br>absolutely essential\"</em><br><span style=\"font-size:9px\">— Pitchfork 8.2</span><br><br><a href=\"#\" onclick=\"doSearch('Theft World');return false\" class=\"msb-btn\">⬇ DOWNLOAD NOW</a>"
+  },
+  {
+    "title": "🔥 HOT TORRENT",
+    "html": "<strong>Lip Critic Live at<br>Silent Barn 2023</strong><br><span style=\"font-size:9px\">FLAC · 847 MB</span><br><span style=\"color:#009900;font-size:9px\">▲ 1,337 seeders</span><br><br><a href=\"#\" onclick=\"doSearch('Lip Critic Live');return false\" class=\"msb-btn\">LEECH IT</a>"
+  },
+  {
+    "title": "📡 TRACKER STATUS",
+    "html": "<span style=\"font-family:monospace;font-size:9px\">opentrackr.org<br><span style=\"color:#009900\">● ONLINE</span><br><br>nyaa.tracker.wf<br><span style=\"color:#009900\">● ONLINE</span></span>"
+  },
+  {
+    "title": "🎸 ON TOUR NOW",
+    "html": "<strong>Lip Critic</strong><br><em>Theft Saga 2026</em><br><br><span style=\"font-size:9px\">NYC · Boston · Chicago<br>LA · Glasgow · London</span><br><br><a href=\"#\" onclick=\"goInner('shows');return false\" class=\"msb-btn\">SEE DATES</a>"
+  },
+  {
+    "title": "💿 STEMS PACK",
+    "html": "<strong>\"Cut &amp; Paste EP\"</strong><br>Multitrack stems<br>24-bit WAV · 1.2 GB<br><span style=\"font-size:9px;color:#888\">FOR REMIXERS ONLY</span><br><br><a href=\"#\" onclick=\"doSearch('Stems');return false\" class=\"msb-btn\">⬇ GRAB STEMS</a>"
+  },
+  {
+    "title": "📰 PRESS QUOTES",
+    "html": "<span style=\"font-size:9px\"><em>\"A band that sounds like it was assembled in a broken factory\"</em><br>— SPIN<br><br><em>\"Infectious noise pop fury\"</em><br>— The Wire<br><br><em>\"They will steal your wallet and your heart\"</em><br>— Brooklyn Vegan</span>"
+  },
+  {
+    "title": "🏴‍☠️ SHARE THE BAY",
+    "html": "Copy the link.<br>Spread the word.<br>Feed the scene.<br><br><a href=\"#\" onclick=\"navigator.clipboard&&navigator.clipboard.writeText(location.href);toast('URL copied!');return false\" class=\"msb-btn\">📋 COPY URL</a>"
+  },
+  {
+    "title": "🎤 ABOUT THE BAND",
+    "html": "<span style=\"font-size:9px\">Lip Critic is a 5-piece<br>electronic punk collective<br>from Brooklyn, NY.<br><br>Formed 2019 in a basement<br>during a power outage.</span><br><br><a href=\"#\" onclick=\"goInner('about');return false\" class=\"msb-btn\">READ MORE</a>"
+  },
+  {
+    "title": "⚡ FREE DOWNLOAD",
+    "html": "<strong>\"Jackpot\" — Single</strong><br><span style=\"font-size:9px\">MP3 320kbps · Free</span><br><em style=\"font-size:9px\">\"The catchiest song<br>you'll feel bad liking\"</em><br><br><a href=\"#\" onclick=\"doSearch('Jackpot');return false\" class=\"msb-btn\">⬇ FREE DL</a>"
+  },
+  {
+    "title": "🌐 CONNECT",
+    "html": "<span style=\"font-size:9px\"><a href=\"https://lipcriticworld.com\" target=\"_blank\" rel=\"noopener\" style=\"color:#000099\">lipcriticworld.com</a><br><a href=\"https://instagram.com/lipcriticworld\" target=\"_blank\" rel=\"noopener\" style=\"color:#000099\">@lipcriticworld</a><br><a href=\"https://open.spotify.com/artist/0jJN2fcQIFwMFW1TcS61D8\" target=\"_blank\" rel=\"noopener\" style=\"color:#000099\">Spotify</a> · <a href=\"https://lipcriticworld.bandcamp.com\" target=\"_blank\" rel=\"noopener\" style=\"color:#000099\">Bandcamp</a><br><br><em style=\"font-size:8px\">\"Everything comes from somewhere\"</em></span>"
+  }
+]

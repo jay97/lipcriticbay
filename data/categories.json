@@ -1,0 +1,29 @@
+[
+  { "id": 100, "name": "Audio", "sub": [
+    {"id": 101, "name": "Music"},
+    {"id": 102, "name": "Audio Books"},
+    {"id": 103, "name": "Sound Clips"},
+    {"id": 104, "name": "FLAC"},
+    {"id": 105, "name": "Other"}
+  ]},
+  { "id": 200, "name": "Video", "sub": [
+    {"id": 201, "name": "Music Videos"},
+    {"id": 202, "name": "Movies"},
+    {"id": 203, "name": "Documentaries"},
+    {"id": 204, "name": "TV Shows"},
+    {"id": 205, "name": "Other"}
+  ]},
+  { "id": 300, "name": "Other", "sub": [
+    {"id": 301, "name": "E-books"},
+    {"id": 302, "name": "Comics"},
+    {"id": 303, "name": "Pictures"},
+    {"id": 304, "name": "Covers"},
+    {"id": 305, "name": "Physibles"}
+  ]},
+  { "id": 400, "name": "Stems", "sub": [
+    {"id": 401, "name": "WAV"},
+    {"id": 402, "name": "FLAC Stems"},
+    {"id": 403, "name": "Multitracks"},
+    {"id": 404, "name": "Other"}
+  ]}
+]

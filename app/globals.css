@@ -1,0 +1,884 @@
+/* ===================================
+   LIP CRITIC BAY — Matched to thepiratebay.org
+   Mobile-first + Instagram web wrapper optimized
+   =================================== */
+
+/* HTML5 element defaults */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* GLOBAL — matches TPB exactly */
+body {
+  background: #fff;
+  margin: 10px 0;
+  font: 0.7em/1.3em Verdana, Arial, Helvetica, sans-serif;
+  text-align: center;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+/* Links — TPB style */
+a, a:link, a:visited, a:focus {
+  color: #009;
+  text-decoration: none;
+  border-bottom: 1px dotted #000;
+}
+a:hover {
+  border-bottom: 1px solid #009;
+}
+#icons a, h1 a:hover, .sp, tr a, #logo a { border-bottom: 0 !important; }
+table a:hover { text-decoration: underline; }
+.download a:hover { text-decoration: none !important; }
+img, img:hover { border-bottom: 0 !important; }
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+}
+th {
+  border-right: 1px solid #fff;
+  padding: 4px;
+}
+td { padding: 4px; }
+
+/* Lists */
+ul { list-style: none; }
+
+/* Forms — native browser defaults, no custom styling */
+fieldset { border: 0; }
+legend { display: none; }
+
+/* Headings */
+h1 {
+  max-width: 1000px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+h2 {
+  width: 98%;
+  background: #F6F1EE;
+  border-bottom: 1px solid #D2B9A6;
+  padding: 4px 0.5%;
+  clear: both;
+  font-size: 125%;
+  font-weight: normal;
+  text-align: left;
+}
+h2 span {
+  font-weight: bold;
+  float: left;
+  font-size: 1.1em;
+}
+
+/* ===================================
+   HEADER (non-homepage) — matches TPB search results header
+   =================================== */
+#header {
+  text-align: left;
+  margin-bottom: 0;
+  padding: 5px 10px;
+}
+#header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+#logo a {
+  float: left;
+  display: block;
+  border-bottom: 0 !important;
+}
+#logo img {
+  height: 86px;
+  width: auto;
+  margin: -12px 10px 0 0;
+  border: 0;
+  object-fit: contain;
+}
+#logo span { display: none; }
+
+/* Nav in header */
+header nav, #header nav {
+  margin: -5px 0 0 -8px;
+  padding: 0;
+  float: left;
+}
+#header nav ul {
+  padding: 0;
+  margin: 0;
+}
+#header nav ul li {
+  float: left;
+  padding: 0 9px;
+  line-height: 11px;
+  border-right: 1px solid #333;
+}
+#header nav ul li:last-child { border: 0; }
+
+/* Top search area in header */
+#topsearch {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+#topsearch label {
+  padding: 0;
+  margin: 0 5px 0 0;
+}
+#topsearch label input {
+  position: relative;
+  top: 5px;
+  margin: 0 3px 0 0;
+  vertical-align: top;
+}
+
+/* Category dropdown in header */
+.cat-select {
+  height: 24px;
+  font-size: 11px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+}
+
+/* ===================================
+   SEARCH RESULTS TABLE — matches TPB #searchResult
+   Table headers are TAN (#D2B9A6), NOT blue
+   =================================== */
+table#searchResult {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 999px;
+  border-collapse: collapse;
+  text-align: left;
+}
+table#searchResult a { border: 0; }
+table#searchResult a:hover { text-decoration: underline; }
+
+table#searchResult th {
+  background: #D2B9A6;
+  text-align: left;
+  height: 1em;
+  white-space: nowrap;
+  padding: 4px;
+}
+table#searchResult th a {
+  color: #000;
+  font-weight: bold;
+  border: 0;
+}
+
+table#searchResult tr {
+  background: #F6F1EE;
+}
+table#searchResult tr:hover {
+  background: #fff;
+}
+table#searchResult td {
+  padding: 4px;
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
+
+/* Category column (vertTh) */
+table#searchResult td.vertTh {
+  font-weight: bold;
+  color: #7B563A;
+  white-space: nowrap;
+  width: 1%;
+  vertical-align: top;
+  font-size: 0.9em;
+}
+table#searchResult td.vertTh a {
+  color: #7B563A;
+}
+
+/* Icon column (between Uploaded and Size) */
+.col-icons {
+  width: 1%;
+  white-space: nowrap;
+  text-align: center;
+}
+table#searchResult th.col-icons {
+  padding: 4px 2px;
+}
+
+/* Magnet/torrent icons inline */
+.dl-magnet, .dl-torrent {
+  display: inline-block;
+  margin: 0 2px;
+  vertical-align: middle;
+  border: 0 !important;
+}
+.dl-magnet img, .dl-torrent img {
+  width: 12px;
+  height: 12px;
+  border: 0;
+}
+
+/* VIP / Trusted badges */
+.badge-vip {
+  color: #009900;
+  font-weight: bold;
+  font-size: 9px;
+}
+.badge-trusted {
+  color: #FF00FF;
+  font-weight: bold;
+  font-size: 9px;
+}
+
+/* ULed by column */
+td.uled-by {
+  white-space: nowrap;
+  font-size: 0.9em;
+}
+
+/* SE / LE text alignment */
+td.se-col, td.le-col {
+  text-align: right;
+}
+
+/* ===================================
+   TORRENT DETAIL PAGE — #detailsframe with tan title
+   =================================== */
+#details, #upload {
+  background: none;
+  margin: 2em auto;
+  padding: 0 1.5em 0.5em 1.5em;
+  max-width: 625px;
+  overflow: hidden;
+}
+#details h1, #upload h1 {
+  margin: 0 -1.5em;
+  padding: .4em 1em .6em 1.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+  letter-spacing: 0.07em;
+  background: #D2B9A6;
+  border-bottom: 1px solid #fff;
+}
+#details h1 span { float: right; }
+#details dl {
+  float: left;
+  margin: .9em 3%;
+  width: 43%;
+  clear: right;
+  line-height: 140%;
+}
+#details dt {
+  float: left;
+  font-weight: bold;
+  color: #7B563A;
+}
+#details #col1 dd { padding: 0 0 0 20%; }
+#details #col2 dd { padding: 0 0 0 30%; }
+
+.detail-title {
+  padding: .4em 1em .6em 1.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+  letter-spacing: 0.07em;
+  background: #D2B9A6;
+  border-bottom: 1px solid #fff;
+  text-align: center;
+}
+
+.detail-body {
+  background: none;
+  padding: 1em 1.5em;
+  text-align: left;
+}
+.detail-body dl {
+  float: left;
+  margin: .9em 3%;
+  width: 43%;
+  line-height: 140%;
+}
+.detail-body dt {
+  float: left;
+  font-weight: bold;
+  color: #7B563A;
+}
+.detail-body dd {
+  padding: 0 0 0 20%;
+}
+
+/* Download / Magnet links — green text, bold, uppercase */
+.download {
+  clear: both;
+  margin: 10px 0;
+  text-align: center;
+}
+.download a {
+  padding-left: 20px;
+  font: bold 1.2em/2.5em Verdana;
+  color: #090 !important;
+  margin-right: 10px;
+  text-transform: uppercase;
+  border: 0 !important;
+}
+.download a:hover {
+  color: #060 !important;
+  text-decoration: underline !important;
+}
+
+/* NFO block */
+#nfo pre, .nfo {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #D2B9A6;
+  background: #fff;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 50px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  line-height: .9em;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  text-align: left;
+}
+
+/* File list container */
+.filelist-container {
+  margin: 3em 0 1em 0;
+  min-height: 50px;
+  border: 1px solid #D2B9A6;
+  background: #fff;
+  padding: 10px;
+  clear: left;
+  text-align: left;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ===================================
+   FRONT PAGE — matches TPB homepage exactly
+   =================================== */
+#fp {
+  display: block;
+  margin: 0 auto 20px auto;
+  text-align: center;
+  padding: 0 10px;
+}
+#fp h1 {
+  margin: 0 auto;
+  display: block;
+}
+#fp h1 a {
+  margin: 0 auto;
+  display: block;
+  border: 0 !important;
+  outline: none !important;
+}
+#fp h1 a span { visibility: hidden; position: absolute; }
+
+#fp #navlinks {
+  white-space: nowrap;
+  margin: 10px 0;
+}
+#fp #navlinks a {
+  margin: 0 2px;
+}
+
+/* Search input on homepage — plain browser default, bordered */
+#fp #inp {
+  margin: 15px auto;
+}
+#fp #inp input[name="q"] {
+  width: 224px;
+  max-width: 80vw;
+  padding: 3px;
+  font-size: 11px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+/* Checkboxes on homepage */
+#fp #chb {
+  margin: 8px 0;
+}
+#fp #chb label {
+  margin-right: 6px;
+  cursor: pointer;
+}
+#fp #chb input[type="checkbox"] {
+  margin: 0 2px 0 0;
+  vertical-align: middle;
+}
+
+/* Buttons on homepage — native browser style */
+#fp #subm {
+  margin: 10px 0;
+}
+#fp #subm input[type="submit"] {
+  font-size: 11px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  padding: 1px 6px;
+}
+
+/* Results heading */
+.results-header {
+  text-align: left;
+  font-size: 125%;
+  font-weight: bold;
+  padding: 4px 10px;
+  margin: 0;
+  clear: both;
+}
+
+/* ===================================
+   PAGINATION — TPB style
+   =================================== */
+div.pagination {
+  text-align: center;
+  margin: 15px 0;
+}
+div.pagination ul {
+  display: inline-flex;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+}
+div.pagination li {
+  display: inline-block;
+}
+div.pagination li a, div.pagination li span {
+  margin-left: 10px;
+  padding: 2px 6px;
+  border: 0;
+  color: #009;
+}
+div.pagination li.active a, div.pagination li.active span {
+  font-weight: bold;
+  color: #000;
+}
+div.pagination li a:hover {
+  text-decoration: underline;
+}
+
+/* ===================================
+   SHOWS / TOUR DATES
+   =================================== */
+.shows-table {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+.shows-table th {
+  background: #D2B9A6;
+  color: #000;
+  padding: 4px 8px;
+  border: 1px solid #fff;
+  font-weight: bold;
+}
+.shows-table td {
+  padding: 4px 8px;
+  border: 1px solid #fff;
+}
+.shows-table tr { background: #F6F1EE; }
+.shows-table tr:hover { background: #fff; }
+.shows-table .sold-out {
+  color: #c00;
+  font-weight: bold;
+  text-decoration: line-through;
+}
+
+/* Clickable rows */
+.shows-table tr.show-row { cursor: pointer; }
+.shows-table tr.show-row-expanded { background: #eee8e3; }
+
+/* Day of week prefix */
+.show-day {
+  color: #999;
+  font-weight: normal;
+  font-size: 0.9em;
+  margin-right: 2px;
+}
+
+/* Past show rows — faded */
+.shows-table tr.past-show-row {
+  background: #eae5e1;
+  color: #999;
+}
+.shows-table tr.past-show-row td {
+  color: #999;
+}
+.shows-table tr.past-show-row:hover {
+  background: #e0dbd7;
+}
+
+/* Expanded detail row */
+.show-detail-row td {
+  padding: 0 8px 8px 8px !important;
+  border-top: 0 !important;
+}
+.show-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 4px 0;
+}
+.show-thumb-link {
+  flex-shrink: 0;
+  border: 0 !important;
+}
+.show-thumb {
+  width: 60px;
+  height: 45px;
+  object-fit: cover;
+  border: 1px solid #D2B9A6;
+  display: block;
+}
+.show-detail-info {
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+/* Supporter key legend */
+.sup-key {
+  margin: 8px 0;
+  font-size: 9px;
+  color: #666;
+}
+.sup-key-item {
+  margin-right: 12px;
+}
+
+/* Supporter dot indicators */
+.sup-indicators {
+  margin-left: 4px;
+}
+.sup-dot {
+  display: inline-block;
+  font-size: 7px;
+  font-weight: bold;
+  width: 10px;
+  height: 10px;
+  line-height: 10px;
+  text-align: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+/* Past shows toggle button */
+.past-shows-toggle {
+  display: inline-block;
+  margin: 10px 0 0 0;
+  padding: 4px 10px;
+  background: none;
+  border: 1px solid #D2B9A6;
+  color: #7B563A;
+  font: bold 9px/1.4 Verdana, Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+.past-shows-toggle:hover {
+  background: #F6F1EE;
+}
+
+/* Show tags — small bordered labels next to venue name */
+.show-tag {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 3px;
+  font-size: 7px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+  background: transparent;
+  border: 1px solid;
+  line-height: 1.5;
+}
+.tag-theft-saga {
+  color: #1a1a1a;
+  border-color: #1a1a1a;
+}
+.tag-pop-up {
+  color: #c0c;
+  border-color: #c0c;
+}
+
+/* MSB button style (used in shows) */
+.msb-btn {
+  display: inline-block;
+  padding: 3px 10px;
+  background: #3579BC;
+  color: white !important;
+  font-weight: bold;
+  font-size: 9px;
+  text-transform: uppercase;
+  border: 0 !important;
+  cursor: pointer;
+  text-decoration: none !important;
+  border-radius: 2px;
+}
+.msb-btn:hover {
+  background: #2a6aa8;
+}
+
+/* ===================================
+   FOOTER — TPB style with crypto donation addresses
+   =================================== */
+footer {
+  margin: 30px auto 10px auto;
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+  clear: both;
+  padding: 10px;
+}
+footer a {
+  color: #009;
+}
+footer p {
+  margin: 5px 0;
+}
+.crypto-donations {
+  margin-top: 10px !important;
+  font-size: 11.2px;
+  word-break: break-all;
+}
+.crypto-donations span {
+  display: inline-block;
+  margin: 2px 0;
+}
+.crypto-donations .crypto-label {
+  color: #009;
+  border-bottom: 1px dotted #000;
+  font-weight: normal;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.crypto-donations .crypto-label:hover {
+  border-bottom: 1px solid #009;
+}
+.crypto-donations .crypto-addr {
+  color: #009;
+  border: 0 !important;
+  font-family: monospace;
+  font-size: 0.95em;
+}
+
+/* ===================================
+   ERROR MESSAGES
+   =================================== */
+#error {
+  border: 1px solid #F6F1EE;
+  border-width: 1px 0;
+  margin: 2em auto;
+  padding: 9px 20px;
+  max-width: 900px;
+  color: #444;
+}
+#error span {
+  display: block;
+  font-weight: bold;
+  margin: 3px 0 5px 0;
+  color: #a00;
+}
+
+/* ===================================
+   RESPONSIVE — Mobile & Instagram Web Wrapper
+   Instagram in-app browser is ~375px wide, no zoom controls
+   =================================== */
+
+/* Tablet and below */
+@media (max-width: 768px) {
+  body {
+    margin: 5px 0;
+    font-size: 11px;
+  }
+
+  /* Header: stack vertically */
+  #header {
+    padding: 5px 8px;
+  }
+  #logo img {
+    height: 50px !important;
+    margin-top: 0 !important;
+  }
+  #header form > div:last-child {
+    clear: both;
+    float: none !important;
+    padding-top: 5px;
+  }
+
+  /* Table: hide less important columns on small screens */
+  table#searchResult td.vertTh {
+    display: none;
+  }
+  table#searchResult th.col-category {
+    display: none;
+  }
+  table#searchResult td.uled-by,
+  table#searchResult th.col-uled {
+    display: none;
+  }
+
+  /* Detail page */
+  #details, #upload {
+    padding: 0 0.5em;
+    max-width: 100%;
+  }
+  #details dl {
+    float: none !important;
+    width: 100% !important;
+    margin: 0.5em 0 !important;
+  }
+  .nfo, .filelist-container {
+    max-width: 100%;
+    width: 100% !important;
+  }
+  .download {
+    width: 100%;
+  }
+  .download a {
+    font-size: 1em;
+    padding-left: 5px;
+  }
+
+  /* Shows table: hide Ages on tablet */
+  .shows-table {
+    font-size: 10px;
+  }
+  .shows-table .col-ages {
+    display: none;
+  }
+  .show-thumb {
+    width: 50px;
+    height: 38px;
+  }
+}
+
+/* Phone / Instagram in-app browser (~375px) */
+@media (max-width: 480px) {
+  body {
+    font-size: 10px;
+  }
+
+  /* Homepage */
+  #fp {
+    padding: 0 5px;
+  }
+  #fp h1 img {
+    max-width: 80vw !important;
+  }
+  #fp #navlinks {
+    white-space: normal;
+    font-size: 10px;
+    line-height: 1.8;
+  }
+  #fp #inp input[name="q"] {
+    width: 90vw;
+    max-width: 90vw;
+    font-size: 16px; /* prevents iOS zoom on focus */
+    padding: 6px;
+  }
+  #fp #chb {
+    font-size: 10px;
+  }
+  #fp #chb label {
+    margin-right: 4px;
+  }
+  #fp #subm input[type="submit"] {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  /* Header compact: full width search */
+  #header form > div:last-child > div {
+    flex-wrap: wrap !important;
+  }
+  #header form > div:last-child > div input[type="text"] {
+    width: calc(100vw - 30px) !important;
+    max-width: calc(100vw - 30px) !important;
+    font-size: 16px !important; /* prevents iOS zoom */
+    padding: 6px !important;
+    box-sizing: border-box;
+  }
+  .cat-select {
+    margin-top: 4px;
+  }
+
+  /* Table: maximize name column */
+  table#searchResult {
+    font-size: 10px;
+  }
+  table#searchResult th,
+  table#searchResult td {
+    padding: 3px 2px;
+  }
+
+  /* Also hide Uploaded column on very small screens */
+  table#searchResult td:nth-child(2) ~ td:nth-child(3),
+  table#searchResult th:nth-child(3) {
+    /* Keep uploaded visible — useful context */
+  }
+
+  /* Pagination: tighter spacing */
+  div.pagination li a, div.pagination li span {
+    margin-left: 5px;
+    padding: 4px;
+  }
+
+  /* Footer crypto: break addresses */
+  .crypto-donations {
+    font-size: 0.8em;
+  }
+
+  /* Shows: smaller thumb on phone */
+  .show-thumb {
+    width: 40px;
+    height: 30px;
+  }
+  .show-detail {
+    gap: 6px;
+  }
+
+  /* Magnet link targets: bigger tap zone */
+  .dl-magnet {
+    padding: 4px;
+  }
+  .dl-magnet img {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  /* Detail page mobile */
+  .detail-title {
+    font-size: 1em;
+    padding: .4em .5em;
+  }
+}
+
+/* Ultra-narrow (Instagram story link / older phones) */
+@media (max-width: 360px) {
+  #fp #navlinks {
+    font-size: 9px;
+  }
+  table#searchResult {
+    font-size: 9px;
+  }
+  /* Hide SE/LE columns */
+  table#searchResult td.se-col,
+  table#searchResult td.le-col {
+    display: none;
+  }
+  table#searchResult th.col-se,
+  table#searchResult th.col-le {
+    display: none;
+  }
+}
