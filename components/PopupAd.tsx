@@ -20,19 +20,12 @@ export default function PopupAd() {
     <div className="popup-overlay" onClick={dismiss}>
       <div className="popup-window" onClick={e => e.stopPropagation()}>
         <div className="popup-titlebar">
-          <span className="popup-titlebar-text">THEFT WORLD — OUT NOW</span>
+          <span className="popup-titlebar-text">Lip Critic — New Album</span>
           <button className="popup-close" onClick={dismiss} aria-label="Close">X</button>
         </div>
         <div className="popup-body">
           <div className="popup-hero">THEFT WORLD</div>
-          <div className="popup-subtitle">The new album from Lip Critic</div>
-
-          <ul className="popup-features">
-            <li>Free FLAC &amp; WAV Downloads</li>
-            <li>Live Recordings &amp; Bootlegs</li>
-            <li>Stems for Remixing</li>
-            <li>Tour Dates &amp; Tickets</li>
-          </ul>
+          <div className="popup-subtitle">Out now on Partisan Records</div>
 
           <a
             href="https://lipcritic.lnk.to/theftworld"
@@ -40,12 +33,8 @@ export default function PopupAd() {
             rel="noopener noreferrer"
             className="popup-cta"
           >
-            STREAM / BUY THEFT WORLD
+            PRE-SAVE ALBUM
           </a>
-
-          <div className="popup-footer-text">
-            lipcritic.com &middot; Free music, no ads, no tracking
-          </div>
         </div>
       </div>
     </div>

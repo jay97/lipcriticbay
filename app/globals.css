@@ -1492,7 +1492,7 @@ footer p {
   background: #F6F1EE;
   border: 2px solid #7B563A;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
-  max-width: 380px;
+  max-width: 300px;
   width: 100%;
   font-family: Verdana, Arial, Helvetica, sans-serif;
 }
@@ -1530,7 +1530,7 @@ footer p {
   background: #fff;
 }
 .popup-body {
-  padding: 16px 20px;
+  padding: 14px 16px;
   text-align: center;
 }
 .popup-hero {
@@ -1544,26 +1544,8 @@ footer p {
 .popup-subtitle {
   font-size: 10px;
   color: #7B563A;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   letter-spacing: 0.04em;
-}
-.popup-features {
-  text-align: left;
-  margin: 0 auto 16px auto;
-  padding: 0;
-  list-style: none;
-  max-width: 240px;
-}
-.popup-features li {
-  font-size: 11px;
-  padding: 3px 0;
-  color: #333;
-  border-bottom: 1px dotted #D2B9A6;
-}
-.popup-features li::before {
-  content: '\25B8 ';
-  color: #7B563A;
-  font-size: 9px;
 }
 .popup-cta {
   display: inline-block;
@@ -1576,16 +1558,10 @@ footer p {
   border: 1px solid #060 !important;
   cursor: pointer;
   text-decoration: none !important;
-  margin-bottom: 12px;
 }
 .popup-cta:hover {
   background: #060;
   text-decoration: none !important;
-}
-.popup-footer-text {
-  font-size: 8px;
-  color: #999;
-  margin-top: 4px;
 }
 
 /* ===================================
