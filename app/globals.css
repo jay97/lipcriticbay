@@ -759,30 +759,27 @@ div.pagination li a:hover {
   white-space: nowrap;
 }
 
-/* Shows layout: table + sidebar calendar */
-.shows-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px;
-  grid-template-areas:
-    "controls sidebar"
-    "main sidebar";
-  column-gap: 16px;
-  row-gap: 6px;
-  align-items: start;
+/* Shows header row: title+controls left, calendar right (desktop) */
+.shows-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+.shows-header-left {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.shows-header-calendar {
+  flex: 0 0 220px;
+  width: 220px;
 }
 .shows-controls {
-  grid-area: controls;
   min-width: 0;
 }
 .shows-main {
-  grid-area: main;
   margin-top: 0;
-}
-.shows-sidebar {
-  grid-area: sidebar;
-  width: 220px;
-  padding-top: 0;
-  margin: 0;
 }
 
 /* ===== Mini Calendar ===== */
@@ -967,22 +964,16 @@ footer p {
   .show-date-dow {
     display: none;
   }
-  .shows-layout {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "controls"
-      "main"
-      "sidebar";
-    row-gap: 8px;
+  .shows-header-row {
+    flex-direction: column;
+    gap: 8px;
   }
-  .shows-sidebar {
+  .shows-header-calendar {
+    flex: 0 0 auto;
     width: 100%;
     max-width: 260px;
     margin: 0 auto;
     padding: 0 8px;
-  }
-  .shows-calendar {
-    display: block;
   }
   .cal-month {
     width: 100%;

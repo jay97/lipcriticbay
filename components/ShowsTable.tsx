@@ -17,6 +17,9 @@ const SUP_KEY: Record<string, { label: string; color: string }> = {
   F: { label: 'Flatwounds', color: '#c44' },
 }
 
+// Simple in-memory cache for weather responses
+const weatherCache = new Map<string, { tempHigh: number; tempLow: number; code: number }>()
+
 function parseShowDate(dateStr: string): Date {
   return new Date(dateStr)
 }
@@ -72,21 +75,41 @@ function WeatherForecast({ lat, lng, date }: { lat: number; lng: number; date: s
     }
 
     const dateStr = showDate.toISOString().split('T')[0]
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=fahrenheit&start_date=${dateStr}&end_date=${dateStr}&timezone=auto`
+    const cacheKey = `${lat},${lng},${dateStr}`
 
-    fetch(url)
-      .then(r => r.json())
+    // Check cache first
+    const cached = weatherCache.get(cacheKey)
+    if (cached) {
+      setWeather(cached)
+      setLoading(false)
+      return
+    }
+
+    const controller = new AbortController()
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lng)}&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=fahrenheit&start_date=${encodeURIComponent(dateStr)}&end_date=${encodeURIComponent(dateStr)}&timezone=auto`
+
+    fetch(url, { signal: controller.signal })
+      .then(r => {
+        if (!r.ok) throw new Error('Weather fetch failed')
+        return r.json()
+      })
       .then(data => {
         if (data.daily && data.daily.temperature_2m_max?.[0] != null) {
-          setWeather({
+          const result = {
             tempHigh: Math.round(data.daily.temperature_2m_max[0]),
             tempLow: Math.round(data.daily.temperature_2m_min[0]),
             code: data.daily.weather_code?.[0] ?? -1,
-          })
+          }
+          weatherCache.set(cacheKey, result)
+          setWeather(result)
         }
         setLoading(false)
       })
-      .catch(() => setLoading(false))
+      .catch(err => {
+        if (err.name !== 'AbortError') setLoading(false)
+      })
+
+    return () => controller.abort()
   }, [lat, lng, date])
 
   if (loading) return null
@@ -96,23 +119,23 @@ function WeatherForecast({ lat, lng, date }: { lat: number; lng: number; date: s
     <div className="show-detail-weather-box">
       <span className="weather-forecast">
         <span className="weather-icon">{weatherIcon(weather.code)}</span>
-        {' '}{weather.tempHigh}°/{weather.tempLow}°F
+        {' '}{weather.tempHigh}/{weather.tempLow}F
       </span>
     </div>
   )
 }
 
 function weatherIcon(code: number): string {
-  if (code === 0) return '☀️'
-  if (code <= 3) return '⛅'
-  if (code <= 48) return '🌫️'
-  if (code <= 57) return '🌧️'
-  if (code <= 67) return '🌧️'
-  if (code <= 77) return '🌨️'
-  if (code <= 82) return '🌧️'
-  if (code <= 86) return '🌨️'
-  if (code >= 95) return '⛈️'
-  return '🌤️'
+  if (code === 0) return '\u2600\uFE0F'
+  if (code <= 3) return '\u26C5'
+  if (code <= 48) return '\uD83C\uDF2B\uFE0F'
+  if (code <= 57) return '\uD83C\uDF27\uFE0F'
+  if (code <= 67) return '\uD83C\uDF27\uFE0F'
+  if (code <= 77) return '\uD83C\uDF28\uFE0F'
+  if (code <= 82) return '\uD83C\uDF27\uFE0F'
+  if (code <= 86) return '\uD83C\uDF28\uFE0F'
+  if (code >= 95) return '\u26C8\uFE0F'
+  return '\uD83C\uDF24\uFE0F'
 }
 
 // ===== ShowRow — controlled by parent (accordion) =====
@@ -161,7 +184,7 @@ function ShowRow({ show, isPast, expanded, onToggle, showKey }: {
               {photoHref ? (
                 <a href={photoHref} target="_blank" rel="noopener noreferrer"
                   className="show-thumb-link" onClick={e => e.stopPropagation()}>
-                  <img src={photoHref} alt={show.venue} className="show-thumb" loading="lazy" />
+                  <img src={photoHref} alt={show.venue} className="show-thumb" loading="lazy" width={100} height={100} />
                 </a>
               ) : (
                 <div className="show-thumb-link">
@@ -346,6 +369,10 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
   const hasPastShows = pastShows.length > 0
   const hasSupport = shows.some(s => s.sup.length > 0)
 
+  // Compute header stats
+  const nextShow = upcomingShows[0]
+  const totalUpcoming = upcomingShows.length
+
   function toggle(key: string) {
     setExpandedKey(prev => prev === key ? null : key)
   }
@@ -354,7 +381,7 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
   function scrollToRow(key: string) {
     requestAnimationFrame(() => {
       setTimeout(() => {
-        document.querySelector(`[data-show-key="${key}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        document.querySelector(`[data-show-key="${CSS.escape(key)}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }, 60)
     })
   }
@@ -378,33 +405,49 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
       // Longer delay for past shows since they need to render first
       requestAnimationFrame(() => {
         setTimeout(() => {
-          document.querySelector(`[data-show-key="${key}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          document.querySelector(`[data-show-key="${CSS.escape(key)}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
         }, 150)
       })
     }
   }, [upcomingShows, pastShows, showPast])
 
   return (
-    <div className="shows-layout">
-      <div className="shows-controls">
-        {hasSupport && (
-          <div className="sup-key">
-            {Object.entries(SUP_KEY).map(([code, info]) => (
-              <span key={code} className="sup-key-item">
-                <span className="sup-dot" style={{ color: info.color }}>{code}</span>
-                {' '}{info.label}
+    <>
+      {/* Header row: title + controls on left, calendar on right (desktop) */}
+      <div className="shows-header-row">
+        <div className="shows-header-left">
+          <h2 className="shows-h2">
+            <span className="shows-h2-title">Tour Dates</span>
+            {nextShow && (
+              <span className="shows-h2-stats">
+                {totalUpcoming} shows &middot; Next: {nextShow.city} — {nextShow.date}
               </span>
-            ))}
+            )}
+          </h2>
+          <div className="shows-controls">
+            {hasSupport && (
+              <div className="sup-key">
+                {Object.entries(SUP_KEY).map(([code, info]) => (
+                  <span key={code} className="sup-key-item">
+                    <span className="sup-dot" style={{ color: info.color }}>{code}</span>
+                    {' '}{info.label}
+                  </span>
+                ))}
+              </div>
+            )}
+            {hasPastShows && (
+              <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
+                {showPast ? '\u25BE HIDE PAST SHOWS' : `\u25B8 PAST SHOWS (${pastShows.length})`}
+              </button>
+            )}
           </div>
-        )}
-
-        {hasPastShows && (
-          <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
-            {showPast ? '▾ HIDE PAST SHOWS' : `▸ PAST SHOWS (${pastShows.length})`}
-          </button>
-        )}
+        </div>
+        <div className="shows-header-calendar">
+          <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
+        </div>
       </div>
 
+      {/* Table: full width */}
       <div className="shows-main">
         <table className="shows-table">
           <thead>
@@ -427,10 +470,6 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
           </tbody>
         </table>
       </div>
-
-      <div className="shows-sidebar">
-        <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
-      </div>
-    </div>
+    </>
   )
 }

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getTorrents } from '@/lib/data'
 
+const MAX_HASHES = 100
+
 export async function GET(request: Request) {
   // On serverless (Vercel), UDP scraping isn't available.
   // Return empty peers — PeerCounts component will show 0/0 gracefully.
@@ -10,6 +12,7 @@ export async function GET(request: Request) {
     ? new Set(
         rawHashes
           .split(',')
+          .slice(0, MAX_HASHES)
           .map(hash => hash.trim().toLowerCase())
           .filter(hash => /^[a-f0-9]{40}$/.test(hash))
       )
