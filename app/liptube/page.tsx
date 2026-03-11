@@ -1,5 +1,9 @@
 import { getVideos } from '@/lib/data'
+import { fetchYouTubeVideos } from '@/lib/youtube'
 import type { Metadata } from 'next'
+import type { Video } from '@/lib/types'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'LipTube',
@@ -10,8 +14,45 @@ export const metadata: Metadata = {
   },
 }
 
-export default function LipTubePage() {
-  const videos = getVideos()
+/**
+ * Merge fresh RSS data with static fallback data.
+ * RSS provides fresh view counts and any new uploads.
+ * Static data fills in duration and older videos beyond the 15-item RSS limit.
+ */
+function mergeVideos(fresh: Video[], stale: Video[]): Video[] {
+  const staleMap = new Map(stale.map(v => [v.id, v]))
+  const seen = new Set<string>()
+  const merged: Video[] = []
+
+  // Fresh videos first (newest) — fill in missing duration from static data
+  for (const v of fresh) {
+    seen.add(v.id)
+    const fallback = staleMap.get(v.id)
+    merged.push({
+      ...v,
+      duration: v.duration || fallback?.duration || '',
+      durationSeconds: v.durationSeconds || fallback?.durationSeconds || 0,
+    })
+  }
+
+  // Append any older static videos not in the RSS feed
+  for (const v of stale) {
+    if (!seen.has(v.id)) {
+      merged.push(v)
+    }
+  }
+
+  return merged
+}
+
+export default async function LipTubePage() {
+  const staticVideos = getVideos()
+  const freshVideos = await fetchYouTubeVideos()
+
+  const videos = freshVideos && freshVideos.length > 0
+    ? mergeVideos(freshVideos, staticVideos)
+    : staticVideos
+
   const totalResults = videos.length
 
   return (
@@ -101,7 +142,9 @@ export default function LipTubePage() {
                     height={110}
                     loading="lazy"
                   />
-                  <span className="lt-duration">{video.duration}</span>
+                  {video.duration && (
+                    <span className="lt-duration">{video.duration}</span>
+                  )}
                 </div>
                 <div className="lt-result-info">
                   <div className="lt-result-title">{video.title}</div>
