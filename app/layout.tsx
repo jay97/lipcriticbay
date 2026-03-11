@@ -77,8 +77,9 @@ export default function RootLayout({
         {children}
         <footer>
           <p className="crypto-donations">
-            <span><a href="bitcoin:bc1qLIPCRITICBAYxxxxxxxxxxxxxxxxxx" className="crypto-label">BTC</a>: <a href="bitcoin:bc1qLIPCRITICBAYxxxxxxxxxxxxxxxxxx" className="crypto-addr">bc1qLIPCRITICBAYxxxxxxxxxxxxxxxxxx</a></span><br />
-            <span><a href="ethereum:0xLIPCRITICBAYxxxxxxxxxxxxxxxxxxxxxxxxxxx" className="crypto-label">ETH</a>: <a href="ethereum:0xLIPCRITICBAYxxxxxxxxxxxxxxxxxxxxxxxxxxx" className="crypto-addr">0xLIPCRITICBAYxxxxxxxxxxxxxxxxxxxxxxxxxxx</a></span>
+            <span><a href="bitcoin:31oWGmzmyjfwPQzv2kpQXASwMXe57f8K9w" className="crypto-label">BTC</a>: <a href="bitcoin:31oWGmzmyjfwPQzv2kpQXASwMXe57f8K9w" className="crypto-addr">31oWGmzmyjfwPQzv2kpQXASwMXe57f8K9w</a></span><br />
+            <span><a href="litecoin:MMdWGCxCqMEuGnAYm761rHQQzbSiJT3w8C" className="crypto-label">LTC</a>: <a href="litecoin:MMdWGCxCqMEuGnAYm761rHQQzbSiJT3w8C" className="crypto-addr">MMdWGCxCqMEuGnAYm761rHQQzbSiJT3w8C</a></span><br />
+            <span><a href="ethereum:0x7e9B37dEBbDA960F56053aF76A70d3674e3aB8A9" className="crypto-label">ETH</a>: <a href="ethereum:0x7e9B37dEBbDA960F56053aF76A70d3674e3aB8A9" className="crypto-addr">0x7e9B37dEBbDA960F56053aF76A70d3674e3aB8A9</a></span>
           </p>
         </footer>
       </body>
