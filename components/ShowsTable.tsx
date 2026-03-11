@@ -492,7 +492,7 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
 
   return (
     <div className="shows-layout">
-      {/* Header: title + controls */}
+      {/* Header: title */}
       <div className="shows-header-left">
         <h2 className="shows-h2">
           <span className="shows-h2-title">Tour Dates</span>
@@ -502,23 +502,25 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
             </span>
           )}
         </h2>
-        <div className="shows-controls">
-          {hasSupport && (
-            <div className="sup-key">
-              {Object.entries(SUP_KEY).map(([code, info]) => (
-                <span key={code} className="sup-key-item">
-                  <span className="sup-dot" style={{ color: info.color }}>{code}</span>
-                  {' '}{info.label}
-                </span>
-              ))}
-            </div>
-          )}
-          {hasPastShows && (
-            <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
-              {showPast ? '\u25BE HIDE PAST SHOWS' : `\u25B8 PAST SHOWS (${pastShows.length})`}
-            </button>
-          )}
-        </div>
+      </div>
+
+      {/* Controls: support key + past shows toggle */}
+      <div className="shows-controls">
+        {hasSupport && (
+          <div className="sup-key">
+            {Object.entries(SUP_KEY).map(([code, info]) => (
+              <span key={code} className="sup-key-item">
+                <span className="sup-dot" style={{ color: info.color }}>{code}</span>
+                {' '}{info.label}
+              </span>
+            ))}
+          </div>
+        )}
+        {hasPastShows && (
+          <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
+            {showPast ? '\u25BE HIDE PAST SHOWS' : `\u25B8 PAST SHOWS (${pastShows.length})`}
+          </button>
+        )}
       </div>
 
       {/* Desktop calendar — right side (hidden on mobile via CSS) */}

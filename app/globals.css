@@ -800,29 +800,33 @@ div.pagination li a:hover {
 .shows-layout {
   display: grid;
   grid-template-columns: 1fr 220px;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   gap: 6px 16px;
 }
 .shows-header-left {
   grid-column: 1;
   grid-row: 1;
   min-width: 0;
+  align-self: start;
 }
 .shows-header-calendar {
   grid-column: 2;
   grid-row: 1 / 3;
   width: 220px;
+  align-self: start;
 }
 .shows-controls {
+  grid-column: 1;
+  grid-row: 2;
   min-width: 0;
 }
 .shows-main {
-  grid-column: 1;
-  grid-row: 2;
+  grid-column: 1 / -1;
+  grid-row: 3;
 }
 .shows-footer-calendar {
   grid-column: 1 / -1;
-  grid-row: 3;
+  grid-row: 4;
 }
 .desktop-only { display: block; }
 .mobile-only { display: none; }
