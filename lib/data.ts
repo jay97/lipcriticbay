@@ -1,12 +1,13 @@
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import type { Torrent, Category, Ad, Show, Video } from './types'
+import type { Torrent, Category, Ad, Show, MerchItem, Video } from './types'
 
 const dataDir = join(process.cwd(), 'data')
 let torrentsCache: Torrent[] | null = null
 let categoriesCache: Category[] | null = null
 let adsCache: Ad[] | null = null
 let showsCache: Show[] | null = null
+let merchCache: MerchItem[] | null = null
 let videosCache: Video[] | null = null
 
 function loadJson<T>(filename: string): T {
@@ -75,6 +76,13 @@ export function getShows(): Show[] {
     showsCache = loadJson<Show[]>('shows.json')
   }
   return showsCache
+}
+
+export function getMerch(): MerchItem[] {
+  if (!merchCache) {
+    merchCache = loadJson<MerchItem[]>('merch.json')
+  }
+  return merchCache
 }
 
 export function getVideos(): Video[] {

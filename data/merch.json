@@ -1,0 +1,110 @@
+[
+  {
+    "id": "black-and-blue-tee",
+    "name": "Black and Blue tee",
+    "price": 25,
+    "url": "https://lipcriticshop.bigcartel.com/product/black-and-blue-tee",
+    "image": "https://assets.bigcartel.com/product_images/413298990/blue+lip.png",
+    "tag": null,
+    "soldOut": false
+  },
+  {
+    "id": "black-herron-shirt",
+    "name": "Black Herron shirt",
+    "price": 30,
+    "url": "https://lipcriticshop.bigcartel.com/product/black-herron-shirt",
+    "image": "https://assets.bigcartel.com/product_images/413299590/herronfront.jpg",
+    "tag": "LOW STOCK",
+    "soldOut": false
+  },
+  {
+    "id": "birds-strength-ringer-tee",
+    "name": "Birds/Strength of the Critic Ringer Tee",
+    "price": 25,
+    "url": "https://lipcriticshop.bigcartel.com/product/birdsstrength-of-the-critic-tee",
+    "image": "https://assets.bigcartel.com/product_images/409442463/IMG_3980.JPG",
+    "tag": null,
+    "soldOut": false
+  },
+  {
+    "id": "black-can-man-tee",
+    "name": "Black can man tee",
+    "price": 30,
+    "url": "https://lipcriticshop.bigcartel.com/product/black-can-man-tee",
+    "image": "https://assets.bigcartel.com/product_images/413299791/canmanfront.jpg",
+    "tag": "LOW STOCK",
+    "soldOut": false
+  },
+  {
+    "id": "mirror-match-second-life-tee",
+    "name": "Mirror Match / Second Life Tee",
+    "price": 20,
+    "url": "https://lipcriticshop.bigcartel.com/product/mirror-match-second-life-tee",
+    "image": "https://assets.bigcartel.com/product_images/407135163/mirror+match+second+life+tee+front+2+.jpg",
+    "tag": null,
+    "soldOut": false
+  },
+  {
+    "id": "black-hoodie",
+    "name": "Black Hoodie (SMALL ONLY)",
+    "price": 35,
+    "url": "https://lipcriticshop.bigcartel.com/product/black-hoodie",
+    "image": "https://assets.bigcartel.com/product_images/413298741/hoodie+front.png",
+    "tag": null,
+    "soldOut": false
+  },
+  {
+    "id": "black-and-red-tee",
+    "name": "Black and Red tee (SMALL ONLY)",
+    "price": 20,
+    "url": "https://lipcriticshop.bigcartel.com/product/small-only-black-and-red-tee",
+    "image": "https://assets.bigcartel.com/product_images/413299977/sprite.png",
+    "tag": "LAST ONE",
+    "soldOut": false
+  },
+  {
+    "id": "lip-critic-music-2xl",
+    "name": "LIP CRITIC MUSIC (2XL ONLY)",
+    "price": 20,
+    "url": "https://lipcriticshop.bigcartel.com/product/2xl-only-lip-critic-music",
+    "image": "https://assets.bigcartel.com/product_images/413298372/lip+critic+music+2xl.png",
+    "tag": null,
+    "soldOut": false
+  },
+  {
+    "id": "positivity-creature-tee",
+    "name": "Positivity Creature T-Shirt",
+    "price": 20,
+    "url": "https://lipcriticshop.bigcartel.com/product/positivity-creature-t-shirt",
+    "image": "https://assets.bigcartel.com/product_images/395317404/IMG_3052.jpeg",
+    "tag": "LAST ONE",
+    "soldOut": false
+  },
+  {
+    "id": "hello-kitty-tote",
+    "name": "Hello Kitty Tote bag",
+    "price": 25,
+    "url": "https://lipcriticshop.bigcartel.com/product/hello-kitty-tote-bag",
+    "image": "https://assets.bigcartel.com/product_images/413298507/tote.jpg",
+    "tag": null,
+    "soldOut": true
+  },
+  {
+    "id": "bandanas",
+    "name": "Positivity Creature/Vitruvian Man Bandanas",
+    "price": 15,
+    "url": "https://lipcriticshop.bigcartel.com/product/positivity-creature-vitruvian-man-bandanas",
+    "image": "https://assets.bigcartel.com/product_images/395613243/IMG_1742.jpeg",
+    "tag": null,
+    "soldOut": true
+  },
+  {
+    "id": "little-death-yinyang-tee",
+    "name": "Little Death Yinyang T-Shirt",
+    "price": 30,
+    "url": "https://lipcriticshop.bigcartel.com/product/little-death-yinyang-t-shirt",
+    "image": "https://assets.bigcartel.com/product_images/395608962/IMG_0472.jpeg",
+    "tag": null,
+    "soldOut": true
+  }
+]

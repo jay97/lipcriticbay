@@ -65,6 +65,16 @@ export interface ScrapeCache {
   peers: PeerData
 }
 
+export interface MerchItem {
+  id: string
+  name: string
+  price: number
+  url: string
+  image: string
+  tag: string | null
+  soldOut: boolean
+}
+
 export interface Video {
   id: string
   title: string
