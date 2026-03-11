@@ -19,17 +19,16 @@ export default function TorrentRow({ torrent }: TorrentRowProps) {
           {torrent.name}
         </a>
         {torrent.trusted && <> <span className="badge-trusted" title="Trusted">&#9733;</span></>}
-      </td>
-      <td className="col-date" style={{ whiteSpace: 'nowrap' }}>
-        {torrent.uploadedRaw || torrent.date}
-      </td>
-      <td className="col-icons" style={{ whiteSpace: 'nowrap' }}>
+        {' '}
         <a href={magnet} title="Download this torrent using magnet" className="dl-magnet" style={{ border: 0 }}>
           <img src="/img/icon-magnet.gif" alt="Magnet" width={12} height={12} style={{ border: 0, verticalAlign: 'middle' }} />
         </a>
         {torrent.vip && (
           <img src="/img/vip.gif" alt="VIP" title="VIP" width={11} height={11} style={{ border: 0, verticalAlign: 'middle', marginLeft: 2 }} />
         )}
+      </td>
+      <td className="col-date" style={{ whiteSpace: 'nowrap' }}>
+        {torrent.uploadedRaw || torrent.date}
       </td>
       <td className="col-size" style={{ whiteSpace: 'nowrap' }}>
         {torrent.size}

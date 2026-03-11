@@ -179,7 +179,6 @@ table#searchResult th a {
 table#searchResult .col-category { width: 10%; }
 table#searchResult .col-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 table#searchResult .col-date { width: 11%; }
-table#searchResult .col-icons { width: 3%; }
 table#searchResult .col-size { width: 8%; }
 table#searchResult .col-se, table#searchResult .col-se-cell { width: 4%; }
 table#searchResult .col-le, table#searchResult .col-le-cell { width: 4%; }
@@ -211,16 +210,6 @@ table#searchResult td.vertTh {
 }
 table#searchResult td.vertTh a {
   color: #7B563A;
-}
-
-/* Icon column (between Uploaded and Size) */
-.col-icons {
-  width: 1%;
-  white-space: nowrap;
-  text-align: center;
-}
-table#searchResult th.col-icons {
-  padding: 4px 2px;
 }
 
 /* Magnet/torrent icons inline */
@@ -1339,11 +1328,15 @@ footer p {
     overflow: visible;
   }
 
-  /* Hide Uploaded date + icons columns on phone */
+  /* Hide Category + ULed by on phone */
+  table#searchResult td.vertTh,
+  table#searchResult th.col-category { display: none; }
+  table#searchResult td.uled-by,
+  table#searchResult th.col-uled { display: none; }
+
+  /* Hide Uploaded date column on phone */
   table#searchResult .col-date,
   table#searchResult th.col-date { display: none; }
-  table#searchResult .col-icons,
-  table#searchResult th.col-icons { display: none; }
 
   /* Hide SE/LE on phone */
   table#searchResult td.se-col,

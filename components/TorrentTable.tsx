@@ -31,7 +31,6 @@ export default function TorrentTable({ torrents, currentSort, currentOrder, base
           <th className="col-date">
             <a href={sortLink('date', currentSort, currentOrder, baseUrl)}>Uploaded</a>
           </th>
-          <th className="col-icons"></th>
           <th className="col-size">
             <a href={sortLink('size', currentSort, currentOrder, baseUrl)}>Size</a>
           </th>
