@@ -411,40 +411,119 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
     }
   }, [upcomingShows, pastShows, showPast])
 
+  // Generate ICS data for all upcoming shows
+  function generateICS(): string {
+    const lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Lip Critic Bay//Tour Dates//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'X-WR-CALNAME:Lip Critic Tour Dates',
+    ]
+    for (const show of upcomingShows) {
+      const d = new Date(show.date)
+      const dateStr = `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`
+      const uid = `${dateStr}-${show.venue.replace(/\W+/g, '').toLowerCase()}@lipcriticbay`
+      const summary = `Lip Critic @ ${show.venue}`
+      const location = show.address || `${show.venue}, ${show.city}`
+      const desc = `${show.city} · Doors ${show.doors} · ${show.ages} · ${show.price}${show.sup.length > 0 ? ' · w/ ' + show.sup.map(s => SUP_KEY[s]?.label || s).join(', ') : ''}`
+      lines.push(
+        'BEGIN:VEVENT',
+        `DTSTART;VALUE=DATE:${dateStr}`,
+        `DTEND;VALUE=DATE:${dateStr}`,
+        `UID:${uid}`,
+        `SUMMARY:${icsEscape(summary)}`,
+        `LOCATION:${icsEscape(location)}`,
+        `DESCRIPTION:${icsEscape(desc)}`,
+        show.url && show.url !== '#' ? `URL:${show.url}` : '',
+        'END:VEVENT',
+      )
+    }
+    lines.push('END:VCALENDAR')
+    return lines.filter(Boolean).join('\r\n')
+  }
+
+  function icsEscape(str: string): string {
+    return str.replace(/[\\;,]/g, c => '\\' + c).replace(/\n/g, '\\n')
+  }
+
+  function downloadICS() {
+    const data = generateICS()
+    const blob = new Blob([data], { type: 'text/calendar;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'lip-critic-tour-dates.ics'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function googleCalUrl(show: Show): string {
+    const d = new Date(show.date)
+    const dateStr = `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`
+    const title = `Lip Critic @ ${show.venue}`
+    const location = show.address || `${show.venue}, ${show.city}`
+    const details = `Doors ${show.doors} · ${show.ages} · ${show.price}`
+    return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dateStr}/${dateStr}&location=${encodeURIComponent(location)}&details=${encodeURIComponent(details)}`
+  }
+
+  const calendarBlock = (
+    <div className="shows-calendar-block">
+      <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
+      <div className="cal-download-links">
+        <button type="button" className="cal-dl-btn" onClick={downloadICS}>
+          &#128197; Download .ics (All Shows)
+        </button>
+        {nextShow && (
+          <a
+            href={googleCalUrl(nextShow)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cal-dl-btn"
+            onClick={e => e.stopPropagation()}
+          >
+            &#128197; Add Next Show to Google Calendar
+          </a>
+        )}
+      </div>
+    </div>
+  )
+
   return (
-    <>
-      {/* Header row: title + controls on left, calendar on right (desktop) */}
-      <div className="shows-header-row">
-        <div className="shows-header-left">
-          <h2 className="shows-h2">
-            <span className="shows-h2-title">Tour Dates</span>
-            {nextShow && (
-              <span className="shows-h2-stats">
-                {totalUpcoming} shows &middot; Next: {nextShow.city} — {nextShow.date}
-              </span>
-            )}
-          </h2>
-          <div className="shows-controls">
-            {hasSupport && (
-              <div className="sup-key">
-                {Object.entries(SUP_KEY).map(([code, info]) => (
-                  <span key={code} className="sup-key-item">
-                    <span className="sup-dot" style={{ color: info.color }}>{code}</span>
-                    {' '}{info.label}
-                  </span>
-                ))}
-              </div>
-            )}
-            {hasPastShows && (
-              <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
-                {showPast ? '\u25BE HIDE PAST SHOWS' : `\u25B8 PAST SHOWS (${pastShows.length})`}
-              </button>
-            )}
-          </div>
+    <div className="shows-layout">
+      {/* Header: title + controls */}
+      <div className="shows-header-left">
+        <h2 className="shows-h2">
+          <span className="shows-h2-title">Tour Dates</span>
+          {nextShow && (
+            <span className="shows-h2-stats">
+              {totalUpcoming} shows &middot; Next: {nextShow.city} — {nextShow.date}
+            </span>
+          )}
+        </h2>
+        <div className="shows-controls">
+          {hasSupport && (
+            <div className="sup-key">
+              {Object.entries(SUP_KEY).map(([code, info]) => (
+                <span key={code} className="sup-key-item">
+                  <span className="sup-dot" style={{ color: info.color }}>{code}</span>
+                  {' '}{info.label}
+                </span>
+              ))}
+            </div>
+          )}
+          {hasPastShows && (
+            <button className="past-shows-toggle" onClick={() => setShowPast(!showPast)} type="button">
+              {showPast ? '\u25BE HIDE PAST SHOWS' : `\u25B8 PAST SHOWS (${pastShows.length})`}
+            </button>
+          )}
         </div>
-        <div className="shows-header-calendar">
-          <MiniCalendar shows={shows} today={today} onSelectDate={handleCalendarClick} />
-        </div>
+      </div>
+
+      {/* Desktop calendar — right side (hidden on mobile via CSS) */}
+      <div className="shows-header-calendar desktop-only">
+        {calendarBlock}
       </div>
 
       {/* Table: full width */}
@@ -470,6 +549,11 @@ export default function ShowsTable({ shows, today }: ShowsTableProps) {
           </tbody>
         </table>
       </div>
-    </>
+
+      {/* Mobile calendar — below table (hidden on desktop via CSS) */}
+      <div className="shows-footer-calendar mobile-only">
+        {calendarBlock}
+      </div>
+    </div>
   )
 }

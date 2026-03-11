@@ -27,24 +27,31 @@ export default function Header({ hideSearchOnMobile = false }: HeaderProps) {
         </div>
         <div style={{ float: 'left' }}>
           <div style={{ marginBottom: 8, fontSize: 11 }}>
-            <a href="/about" title="About">About</a>
-            {' | '}
-            <a href="/shows" title="Tour Dates">Tour Dates</a>
-            {' | '}
-            <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener noreferrer" title="Instagram">Instagram</a>
-            {' | '}
-            <a href="/merch" title="Merch">Merch</a>
-            <br />
             <b><a href="/" title="Search Torrents">Search Torrents</a></b>
             {' | '}
             <a href="/browse" title="Browse Torrents">Browse Torrents</a>
             {' | '}
             <a href="/recent" title="Recent Torrents">Recent Torrents</a>
+            {' | '}
+            <a href="/top" title="Top Torrents">Top Torrents</a>
           </div>
           <div className="header-search-wrap">
             <Suspense fallback={null}>
               <SearchBar categories={categories} compact />
             </Suspense>
+          </div>
+          <div className="header-custom-links" style={{ marginTop: 6, fontSize: 11 }}>
+            <a href="/about" title="About">About</a>
+            {' | '}
+            <a href="/shows" title="Tour Dates">Tour Dates</a>
+            {' | '}
+            <a href="https://www.instagram.com/lipcritic/" target="_blank" rel="noopener noreferrer" title="Instagram">Instagram</a>
+            {' | '}
+            <a href="/merch" title="Merch">Merch</a>
+            {' | '}
+            <a href="/liptube" title="LipTube">LipTube</a>
+            {' | '}
+            <a href="https://discord.gg/4Rgf4xbH" target="_blank" rel="noopener noreferrer" title="Discord">Discord</a>
           </div>
         </div>
       </form>

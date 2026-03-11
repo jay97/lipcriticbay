@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 
 export default function PeerCounts() {
   useEffect(() => {
+    let stopped = false
+
     function collectVisibleHashes(): string[] {
       const hashes = new Set<string>()
       document.querySelectorAll('[data-hash][data-field]').forEach(el => {
@@ -16,7 +18,7 @@ export default function PeerCounts() {
     }
 
     async function fetchPeers() {
-      if (document.hidden) return
+      if (document.hidden || stopped) return
       try {
         const hashes = collectVisibleHashes()
         if (hashes.length === 0) return
@@ -25,6 +27,13 @@ export default function PeerCounts() {
         const res = await fetch(`/api/peers?hashes=${query}`, { cache: 'no-store' })
         if (!res.ok) return
         const data = await res.json()
+
+        // Stop polling if running on serverless (peers are always 0)
+        if (data.serverless) {
+          stopped = true
+          return
+        }
+
         const peers = data.peers || {}
 
         // Update all SE/LE cells in the DOM
@@ -42,11 +51,11 @@ export default function PeerCounts() {
 
     fetchPeers()
     const intervalMs = window.matchMedia('(max-width: 768px)').matches ? 120000 : 60000
-    const interval = setInterval(fetchPeers, intervalMs)
+    const interval = setInterval(() => {
+      if (!stopped) fetchPeers()
+    }, intervalMs)
     const onVisible = () => {
-      if (!document.hidden) {
-        fetchPeers()
-      }
+      if (!document.hidden && !stopped) fetchPeers()
     }
     document.addEventListener('visibilitychange', onVisible)
     return () => {

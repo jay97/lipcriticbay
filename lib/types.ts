@@ -64,3 +64,16 @@ export interface ScrapeCache {
   lastScrape: string
   peers: PeerData
 }
+
+export interface Video {
+  id: string
+  title: string
+  duration: string
+  durationSeconds: number
+  views: string
+  viewCount: number
+  uploadDate: string
+  uploadLabel: string
+  description: string
+  channel: string
+}

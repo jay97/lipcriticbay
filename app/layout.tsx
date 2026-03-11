@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: 'Lip Critic Bay',
     title: 'Lip Critic Bay — Free Music Downloads',
     description: 'Download Lip Critic music, stems, live recordings, and more. Free FLAC, WAV, and MP3 torrents.',
-    images: [{ url: '/img/logo.png', width: 1200, height: 1145, alt: 'Lip Critic Bay' }],
+    images: [{ url: '/img/logo.png', width: 1200, height: 1144, alt: 'Lip Critic Bay' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -56,7 +56,7 @@ const jsonLd = {
   genre: ['Noise Pop', 'Experimental Punk', 'Art Punk'],
   sameAs: [
     'https://lipcriticworld.com',
-    'https://www.instagram.com/lipcriticworld',
+    'https://www.instagram.com/lipcritic/',
   ],
 }
 

@@ -53,11 +53,11 @@ export default function BrowsePage() {
                       const magnet = generateMagnet(t.hash, t.name, t.trackers)
                       return (
                         <tr key={t.id}>
-                          <td>
+                          <td className="col-name">
                             <a href={`/torrent/${t.id}/${slug}`}>{t.name}</a>
                             {t.trusted && <> <span className="badge-trusted" title="Trusted">&#9733;</span></>}
                           </td>
-                          <td style={{ whiteSpace: 'nowrap' }}>{t.uploadedRaw || t.date}</td>
+                          <td className="col-date" style={{ whiteSpace: 'nowrap' }}>{t.uploadedRaw || t.date}</td>
                           <td className="col-icons" style={{ whiteSpace: 'nowrap' }}>
                             <a href={magnet} title="Download this torrent using magnet" className="dl-magnet" style={{ border: 0 }}>
                               <img src="/img/icon-magnet.gif" alt="Magnet" width={12} height={12} style={{ border: 0, verticalAlign: 'middle' }} />
@@ -66,9 +66,9 @@ export default function BrowsePage() {
                               <img src="/img/vip.gif" alt="VIP" title="VIP" width={11} height={11} style={{ border: 0, verticalAlign: 'middle', marginLeft: 2 }} />
                             )}
                           </td>
-                          <td style={{ whiteSpace: 'nowrap' }}>{t.size}</td>
-                          <td className="se-col" data-hash={t.hash} data-field="se">{t.se}</td>
-                          <td className="le-col" data-hash={t.hash} data-field="le">{t.le}</td>
+                          <td className="col-size" style={{ whiteSpace: 'nowrap' }}>{t.size}</td>
+                          <td className="se-col col-se-cell" data-hash={t.hash} data-field="se">{t.se}</td>
+                          <td className="le-col col-le-cell" data-hash={t.hash} data-field="le">{t.le}</td>
                         </tr>
                       )
                     })

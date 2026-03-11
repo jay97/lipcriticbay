@@ -14,13 +14,13 @@ export default function TorrentRow({ torrent }: TorrentRowProps) {
       <td className="vertTh">
         <a href={`/search?cat=${torrent.catId}`}>{torrent.catName}</a>
       </td>
-      <td>
+      <td className="col-name">
         <a href={`/torrent/${torrent.id}/${slug}`} style={{ border: 0 }}>
           {torrent.name}
         </a>
         {torrent.trusted && <> <span className="badge-trusted" title="Trusted">&#9733;</span></>}
       </td>
-      <td style={{ whiteSpace: 'nowrap' }}>
+      <td className="col-date" style={{ whiteSpace: 'nowrap' }}>
         {torrent.uploadedRaw || torrent.date}
       </td>
       <td className="col-icons" style={{ whiteSpace: 'nowrap' }}>
@@ -31,13 +31,13 @@ export default function TorrentRow({ torrent }: TorrentRowProps) {
           <img src="/img/vip.gif" alt="VIP" title="VIP" width={11} height={11} style={{ border: 0, verticalAlign: 'middle', marginLeft: 2 }} />
         )}
       </td>
-      <td style={{ whiteSpace: 'nowrap' }}>
+      <td className="col-size" style={{ whiteSpace: 'nowrap' }}>
         {torrent.size}
       </td>
-      <td className="se-col" data-hash={torrent.hash} data-field="se">
+      <td className="se-col col-se-cell" data-hash={torrent.hash} data-field="se">
         {torrent.se}
       </td>
-      <td className="le-col" data-hash={torrent.hash} data-field="le">
+      <td className="le-col col-le-cell" data-hash={torrent.hash} data-field="le">
         {torrent.le}
       </td>
       <td className="uled-by">

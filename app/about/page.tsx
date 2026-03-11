@@ -47,7 +47,7 @@ export default function AboutPage() {
           <h2 style={{ marginTop: 20 }}><b>Links</b></h2>
           <p style={{ marginTop: 8 }}>
             <a href="https://lipcriticworld.com" target="_blank" rel="noopener noreferrer">Official Website</a><br />
-            <a href="https://www.instagram.com/lipcriticworld" target="_blank" rel="noopener noreferrer">Instagram</a><br />
+            <a href="https://www.instagram.com/lipcritic/" target="_blank" rel="noopener noreferrer">Instagram</a><br />
             <a href="/merch">Merch</a><br />
             <a href="/shows">Tour Dates</a>
           </p>

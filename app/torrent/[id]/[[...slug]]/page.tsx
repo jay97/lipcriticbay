@@ -39,7 +39,10 @@ export default function TorrentPage({ params }: { params: { id: string } }) {
   return (
     <>
       <Header />
-      <div id="details" style={{ maxWidth: 625, margin: '2em auto', padding: '0 1.5em 0.5em 1.5em' }}>
+      <div id="details" style={{ maxWidth: 725, margin: '2em auto', padding: '0 1.5em 0.5em 1.5em' }}>
+        <div className="details-for-heading">
+          Details for: {torrent.name}
+        </div>
         <div className="detail-title">
           {torrent.name}
         </div>
