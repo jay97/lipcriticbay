@@ -1080,11 +1080,27 @@ footer p {
    Instagram in-app browser is ~375px wide, no zoom controls
    =================================== */
 
+/* Mobile nav: hide footer nav on desktop, show on mobile */
+.nav-desktop-only { display: inline; }
+.footer-mobile-nav { display: none; }
+
 /* Tablet and below */
 @media (max-width: 768px) {
   body {
     margin: 5px 0;
     font-size: 11px;
+  }
+
+  .nav-desktop-only { display: none; }
+  .footer-mobile-nav {
+    display: block;
+    text-align: center;
+    font: 11px Verdana, Arial, Helvetica, sans-serif;
+    padding: 8px 10px;
+    margin-bottom: 4px;
+  }
+  .footer-mobile-nav a {
+    color: #7B563A;
   }
 
   .show-date-dow {
@@ -1492,7 +1508,7 @@ footer p {
   background: #F6F1EE;
   border: 2px solid #7B563A;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
-  max-width: 300px;
+  max-width: 220px;
   width: 100%;
   font-family: Verdana, Arial, Helvetica, sans-serif;
 }
@@ -1530,26 +1546,26 @@ footer p {
   background: #fff;
 }
 .popup-body {
-  padding: 14px 16px;
+  padding: 20px 16px;
   text-align: center;
 }
 .popup-hero {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   letter-spacing: 0.12em;
   color: #000;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
   text-transform: uppercase;
 }
 .popup-subtitle {
-  font-size: 10px;
+  font-size: 9px;
   color: #7B563A;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   letter-spacing: 0.04em;
 }
 .popup-cta {
-  display: inline-block;
-  padding: 8px 20px;
+  display: block;
+  padding: 10px 16px;
   background: #090;
   color: #fff !important;
   font: bold 12px/1.4 Verdana, Arial, Helvetica, sans-serif;

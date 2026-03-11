@@ -76,6 +76,17 @@ export default function RootLayout({
       <body>
         {children}
         <footer>
+          <nav className="footer-mobile-nav">
+            <a href="/top">Top Torrents</a>
+            {' | '}
+            <a href="https://www.instagram.com/lipcritic/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            {' | '}
+            <a href="/merch">Merch</a>
+            {' | '}
+            <a href="/liptube">LipTube</a>
+            {' | '}
+            <a href="https://discord.gg/4Rgf4xbH" target="_blank" rel="noopener noreferrer">Discord</a>
+          </nav>
           <p className="crypto-donations">
             <span><a href="bitcoin:31oWGmzmyjfwPQzv2kpQXASwMXe57f8K9w" className="crypto-label">BTC</a>: <a href="bitcoin:31oWGmzmyjfwPQzv2kpQXASwMXe57f8K9w" className="crypto-addr">31oWGmzmyjfwPQzv2kpQXASwMXe57f8K9w</a></span><br />
             <span><a href="litecoin:MMdWGCxCqMEuGnAYm761rHQQzbSiJT3w8C" className="crypto-label">LTC</a>: <a href="litecoin:MMdWGCxCqMEuGnAYm761rHQQzbSiJT3w8C" className="crypto-addr">MMdWGCxCqMEuGnAYm761rHQQzbSiJT3w8C</a></span><br />

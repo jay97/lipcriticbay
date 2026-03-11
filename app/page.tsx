@@ -29,8 +29,11 @@ export default function HomePage() {
       <nav id="navlinks">
         <strong>Search Torrents</strong> |{' '}
         <a href="/browse" title="Browse Torrents">Browse Torrents</a> |{' '}
-        <a href="/recent" title="Recent Torrents">Recent Torrents</a> |{' '}
+        <a href="/recent" title="Recent Torrents">Recent Torrents</a>
+        <span className="nav-desktop-only">
+        {' | '}
         <a href="/top" title="Top Torrents">Top Torrents</a>
+        </span>
       </nav>
 
       <form name="q" method="get" action="/search">
@@ -41,11 +44,14 @@ export default function HomePage() {
 
       <nav id="customlinks">
         <a href="/about" title="About">About</a> |{' '}
-        <a href="/shows" title="Tour Dates">Tour Dates</a> |{' '}
+        <a href="/shows" title="Tour Dates">Tour Dates</a>
+        <span className="nav-desktop-only">
+        {' | '}
         <a href="https://www.instagram.com/lipcritic/" target="_blank" rel="noopener noreferrer">Instagram</a> |{' '}
         <a href="/merch" title="Merch">Merch</a> |{' '}
         <a href="/liptube" title="LipTube">LipTube</a> |{' '}
         <a href="https://discord.gg/4Rgf4xbH" target="_blank" rel="noopener noreferrer">Discord</a>
+        </span>
       </nav>
     </div>
     </>

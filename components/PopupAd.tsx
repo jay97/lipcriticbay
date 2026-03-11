@@ -25,7 +25,7 @@ export default function PopupAd() {
         </div>
         <div className="popup-body">
           <div className="popup-hero">THEFT WORLD</div>
-          <div className="popup-subtitle">Out now on Partisan Records</div>
+          <div className="popup-subtitle">Dropping May 1st on Partisan Records</div>
 
           <a
             href="https://lipcritic.lnk.to/theftworld"
